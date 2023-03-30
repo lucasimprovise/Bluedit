@@ -3,17 +3,24 @@ import React, {useState} from 'react';
 import {Alert} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import styled from 'styled-components';
+import {useNavigation} from '@react-navigation/native';
+
 // Component
 const Authentication = () => {
   // State
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  // Navigation
+  const navigation = useNavigation();
+
   // Functions
   const signUp = async () => {
     try {
       await auth().createUserWithEmailAndPassword(email, password);
       Alert.alert('Success', 'Your account has been created successfully');
+      // Naviguer vers la page d'accueil
+      navigation.navigate('HomePage');
     } catch (error) {
       Alert.alert('Error', error.message);
     }
@@ -23,6 +30,7 @@ const Authentication = () => {
     try {
       await auth().signInWithEmailAndPassword(email, password);
       Alert.alert(' Success', 'You have successfully signed in');
+      navigation.navigate('HomePage');
     } catch (error) {
       Alert.alert('Error', error.message);
     }
