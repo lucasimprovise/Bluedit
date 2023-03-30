@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "11347514483",
+    "project_id": "bluedit-81626",
+    "storage_bucket": "bluedit-81626.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:11347514483:android:e656dccaffd78e0fe64606",
+        "android_client_info": {
+          "package_name": "com.bluedit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "11347514483-md7ugimn08pgpoibmrt3uo3pe2idu31t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_VeVmdA53e-yX5SHUYbP2WEWpuHbyGoY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "11347514483-md7ugimn08pgpoibmrt3uo3pe2idu31t.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "11347514483-shtmvshujoelm00k27c1hi7fdu9dqdoc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.Bluedit"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
