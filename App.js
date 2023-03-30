@@ -1,8 +1,8 @@
 import React from 'react';
-import Authentication from './src/Authentication';
+import MyProfile from './src/screens/MyProfile';
 
 const App = () => {
-  return <Authentication />;
+  return <MyProfile />;
 };
 
 export default App;
