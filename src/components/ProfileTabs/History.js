@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/native'
 import Post from '../Post'
+import { useTranslation } from 'react-i18next'
 
 const HistoryScreen = () => {
+  const { t } = useTranslation()
+
   const [userHistory, setUserHistory] = useState([
     {
       id: '1',
@@ -46,12 +49,12 @@ const HistoryScreen = () => {
   ])
 
   const actions = {
-    comment: 'A commenté',
-    post: 'A posté',
-    upvote: 'A upvoté',
-    downvote: 'A downvoté',
-    create: 'A créé',
-    join: 'A rejoint'
+    comment: t('actions.comment'),
+    post: t('actions.post'),
+    upvote: t('actions.upvote'),
+    downvote: t('actions.downvote'),
+    create: t('actions.create'),
+    join: t('actions.join')
   }
 
   return (
@@ -67,7 +70,7 @@ const HistoryScreen = () => {
           <HistoryItemContainer>
             <HistoryItemAction>
               {actions[item.action]}
-              {(item.action == 'upvote' || item.action == 'downvote') && item.commentId && ` le commentaire "${post.title}"`}
+              {(item.action == 'upvote' || item.action == 'downvote') && item.commentId && ` ${t('the_comment')} "${post.title}"`}
             </HistoryItemAction>
 
             {comment && <HistoryItemDetails>"{comment?.content}"</HistoryItemDetails>}

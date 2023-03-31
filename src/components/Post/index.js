@@ -1,7 +1,10 @@
 import React from 'react'
 import styled from 'styled-components/native'
+import { useTranslation } from 'react-i18next'
 
 const Post = ({ title, upvotes, downvotes, comments }) => {
+  const { t } = useTranslation()
+
   return (
     <PostContainer>
       <PostTitle>{title}</PostTitle>
@@ -9,7 +12,9 @@ const Post = ({ title, upvotes, downvotes, comments }) => {
         <PostUpvotes>+{upvotes}</PostUpvotes>
         <PostDownvotes>-{downvotes}</PostDownvotes>
       </PostVotes>
-      <PostComments>{comments.length} commentaires</PostComments>
+      <PostComments>
+        {comments.length} {t('comments')}
+      </PostComments>
     </PostContainer>
   )
 }
