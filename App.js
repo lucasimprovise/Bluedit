@@ -1,8 +1,18 @@
-import React from 'react';
-import MyProfile from './src/screens/MyProfile';
+import React from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+import MyProfile from './src/screens/MyProfile'
+
+const Stack = createStackNavigator()
 
 const App = () => {
-  return <MyProfile />;
-};
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="MyProfile" component={MyProfile} options={{ headerShown: false }} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
+}
 
-export default App;
+export default App

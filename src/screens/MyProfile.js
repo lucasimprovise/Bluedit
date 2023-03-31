@@ -1,5 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/native'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import PostsScreen from '../components/ProfileTabs/Posts'
+import CommunitiesScreen from '../components/ProfileTabs/Communities'
+import HistoryScreen from '../components/ProfileTabs/History'
 
 const ProfileScreen = ({ navigation }) => {
   const [user, setUser] = useState({
@@ -8,17 +12,19 @@ const ProfileScreen = ({ navigation }) => {
     avatar: 'https://i.imgur.com/8Km9tLL.png',
     bio: 'Je suis un thug'
   })
-  const [lastActivity, setLastActivity] = useState({
-    title: 'Dernière activité',
-    content: 'Contenu de la dernière activité',
-    upvotes: 23,
-    comments: 5
-  })
-  const [forumCreated, setForumCreated] = useState('Forum créé: MonForum')
+
+  const [forumsCreated, setForumsCreated] = useState([
+    {
+      name: 'Pêche en eau douce',
+      description: 'Tout sur la pêche en eau douce'
+    }
+  ])
 
   const handleEditProfile = () => {
     navigation.navigate('EditProfile')
   }
+
+  const TopTab = createBottomTabNavigator()
 
   return (
     <Container>
@@ -32,30 +38,41 @@ const ProfileScreen = ({ navigation }) => {
           <EditProfileButtonText>Modifier</EditProfileButtonText>
         </EditProfileButton>
       </ProfileHeader>
-      <LastActivity>
-        <LastActivityTitle>{lastActivity.title}</LastActivityTitle>
-        <LastActivityDetails>
-          Contenu: {lastActivity.content} | Upvotes: {lastActivity.upvotes} | Commentaires: {lastActivity.comments}
-        </LastActivityDetails>
-      </LastActivity>
-      <ForumCreated>{forumCreated}</ForumCreated>
+
+      <TopTab.Navigator
+        initialRouteName="Posts"
+        screenOptions={{
+          tabBarActiveTintColor: '#2f6de7',
+          tabBarInactiveTintColor: '#000',
+          tabBarStyle: {
+            elevation: 0,
+            width: '100%',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0
+          }
+        }}>
+        <TopTab.Screen name="Posts" component={PostsScreen} />
+        <TopTab.Screen name="Communautés" component={CommunitiesScreen} />
+        <TopTab.Screen name="Historique" component={HistoryScreen} />
+      </TopTab.Navigator>
     </Container>
   )
 }
 
 const Container = styled.View`
   flex: 1;
-  padding: 16px;
+  padding: 10px;
   background-color: #ffffff;
 `
 
 const ProfileHeader = styled.View`
-  margin-bottom: 24px;
   background-color: #2f6de7;
   margin-top: -16px;
   margin-left: -16px;
   margin-right: -16px;
-  padding: 16px;
+  padding: 20px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -72,24 +89,6 @@ const Pseudo = styled.Text`
   font-size: 24px;
   font-weight: bold;
   color: #fff;
-`
-
-const LastActivity = styled.View`
-  margin-bottom: 16px;
-`
-
-const LastActivityTitle = styled.Text`
-  font-size: 18px;
-  font-weight: bold;
-`
-
-const LastActivityDetails = styled.Text`
-  font-size: 16px;
-`
-
-const ForumCreated = styled.Text`
-  font-size: 16px;
-  margin-bottom: 16px;
 `
 
 const EditProfileButton = styled.TouchableOpacity`
