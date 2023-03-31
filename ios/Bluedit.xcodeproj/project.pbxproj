@@ -11,10 +11,10 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		31A40DC6E6CF3550606C2B3E /* Pods_Bluedit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FCEC49EEE6833ABB8EA997B /* Pods_Bluedit.framework */; };
-		5C6CEB96CBE34B865D40B2BC /* Pods_Bluedit_BlueditTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AFB3E996211DD0ACB247679 /* Pods_Bluedit_BlueditTests.framework */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		C65466FB29CEFEC800F0D257 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C65466FA29CEFEC800F0D257 /* GoogleService-Info.plist */; };
+		C805009315C4235565FDDBA1 /* Pods_Bluedit_BlueditTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654A6E95CEC959BBA9606543 /* Pods_Bluedit_BlueditTests.framework */; };
+		DF5083CF3D1CA891B15C9DBA /* Pods_Bluedit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9F87E43614190BE6FF0DAA4 /* Pods_Bluedit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,20 +31,20 @@
 		00E356EE1AD99517003FC87E /* BlueditTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlueditTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* BlueditTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlueditTests.m; sourceTree = "<group>"; };
-		08D5F7E00AE59A7CD84B1A9C /* Pods-Bluedit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bluedit.debug.xcconfig"; path = "Target Support Files/Pods-Bluedit/Pods-Bluedit.debug.xcconfig"; sourceTree = "<group>"; };
-		0FCEC49EEE6833ABB8EA997B /* Pods_Bluedit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bluedit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		082C92C0518A56A0A722D735 /* Pods-Bluedit-BlueditTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bluedit-BlueditTests.release.xcconfig"; path = "Target Support Files/Pods-Bluedit-BlueditTests/Pods-Bluedit-BlueditTests.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Bluedit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bluedit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Bluedit/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = Bluedit/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Bluedit/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Bluedit/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Bluedit/main.m; sourceTree = "<group>"; };
-		15B0CD21A2A2BAB8225E5334 /* Pods-Bluedit-BlueditTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bluedit-BlueditTests.debug.xcconfig"; path = "Target Support Files/Pods-Bluedit-BlueditTests/Pods-Bluedit-BlueditTests.debug.xcconfig"; sourceTree = "<group>"; };
-		2AFB3E996211DD0ACB247679 /* Pods_Bluedit_BlueditTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bluedit_BlueditTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7F4DB713F7B5543CAB766ECC /* Pods-Bluedit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bluedit.release.xcconfig"; path = "Target Support Files/Pods-Bluedit/Pods-Bluedit.release.xcconfig"; sourceTree = "<group>"; };
+		654A6E95CEC959BBA9606543 /* Pods_Bluedit_BlueditTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bluedit_BlueditTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Bluedit/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		9490A106F34030FBB6AAA664 /* Pods-Bluedit-BlueditTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bluedit-BlueditTests.release.xcconfig"; path = "Target Support Files/Pods-Bluedit-BlueditTests/Pods-Bluedit-BlueditTests.release.xcconfig"; sourceTree = "<group>"; };
+		9D3D3796663C3EC89321E0A9 /* Pods-Bluedit-BlueditTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bluedit-BlueditTests.debug.xcconfig"; path = "Target Support Files/Pods-Bluedit-BlueditTests/Pods-Bluedit-BlueditTests.debug.xcconfig"; sourceTree = "<group>"; };
+		BFD0D7136FC2890687D3E8A2 /* Pods-Bluedit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bluedit.release.xcconfig"; path = "Target Support Files/Pods-Bluedit/Pods-Bluedit.release.xcconfig"; sourceTree = "<group>"; };
+		C2D63744F525292CB573CF76 /* Pods-Bluedit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bluedit.debug.xcconfig"; path = "Target Support Files/Pods-Bluedit/Pods-Bluedit.debug.xcconfig"; sourceTree = "<group>"; };
 		C65466FA29CEFEC800F0D257 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D9F87E43614190BE6FF0DAA4 /* Pods_Bluedit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bluedit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -53,7 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C6CEB96CBE34B865D40B2BC /* Pods_Bluedit_BlueditTests.framework in Frameworks */,
+				C805009315C4235565FDDBA1 /* Pods_Bluedit_BlueditTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,7 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31A40DC6E6CF3550606C2B3E /* Pods_Bluedit.framework in Frameworks */,
+				DF5083CF3D1CA891B15C9DBA /* Pods_Bluedit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,8 +102,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				0FCEC49EEE6833ABB8EA997B /* Pods_Bluedit.framework */,
-				2AFB3E996211DD0ACB247679 /* Pods_Bluedit_BlueditTests.framework */,
+				D9F87E43614190BE6FF0DAA4 /* Pods_Bluedit.framework */,
+				654A6E95CEC959BBA9606543 /* Pods_Bluedit_BlueditTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -143,10 +143,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				08D5F7E00AE59A7CD84B1A9C /* Pods-Bluedit.debug.xcconfig */,
-				7F4DB713F7B5543CAB766ECC /* Pods-Bluedit.release.xcconfig */,
-				15B0CD21A2A2BAB8225E5334 /* Pods-Bluedit-BlueditTests.debug.xcconfig */,
-				9490A106F34030FBB6AAA664 /* Pods-Bluedit-BlueditTests.release.xcconfig */,
+				C2D63744F525292CB573CF76 /* Pods-Bluedit.debug.xcconfig */,
+				BFD0D7136FC2890687D3E8A2 /* Pods-Bluedit.release.xcconfig */,
+				9D3D3796663C3EC89321E0A9 /* Pods-Bluedit-BlueditTests.debug.xcconfig */,
+				082C92C0518A56A0A722D735 /* Pods-Bluedit-BlueditTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -158,11 +158,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "BlueditTests" */;
 			buildPhases = (
-				750D08F7DFDC85AB1A9B59F6 /* [CP] Check Pods Manifest.lock */,
+				96D97127C99C1837322930DC /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				A4E0DFD33C35A0367A3680BD /* [CP] Copy Pods Resources */,
+				0C19D49B7F1FFC15B63B70ED /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -178,14 +178,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Bluedit" */;
 			buildPhases = (
-				F2D03764C8CEE3C375285395 /* [CP] Check Pods Manifest.lock */,
+				5F3D8FF8BB1409FF5952FAB4 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				C4E98CF6790A6232095354C5 /* [CP] Copy Pods Resources */,
-				F2F874BF3FAA9C657D254464 /* [CP-User] [RNFB] Core Configuration */,
+				23A47A0C356D60FDF7579BF0 /* [CP] Copy Pods Resources */,
+				A151B3AEC92F4105AF45118E /* [CP-User] [RNFB] Core Configuration */,
 			);
 			buildRules = (
 			);
@@ -269,29 +269,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		750D08F7DFDC85AB1A9B59F6 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Bluedit-BlueditTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A4E0DFD33C35A0367A3680BD /* [CP] Copy Pods Resources */ = {
+		0C19D49B7F1FFC15B63B70ED /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -308,7 +286,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Bluedit-BlueditTests/Pods-Bluedit-BlueditTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C4E98CF6790A6232095354C5 /* [CP] Copy Pods Resources */ = {
+		23A47A0C356D60FDF7579BF0 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -325,7 +303,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Bluedit/Pods-Bluedit-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F2D03764C8CEE3C375285395 /* [CP] Check Pods Manifest.lock */ = {
+		5F3D8FF8BB1409FF5952FAB4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -347,7 +325,29 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F2F874BF3FAA9C657D254464 /* [CP-User] [RNFB] Core Configuration */ = {
+		96D97127C99C1837322930DC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Bluedit-BlueditTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A151B3AEC92F4105AF45118E /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -412,7 +412,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 15B0CD21A2A2BAB8225E5334 /* Pods-Bluedit-BlueditTests.debug.xcconfig */;
+			baseConfigurationReference = 9D3D3796663C3EC89321E0A9 /* Pods-Bluedit-BlueditTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -439,7 +439,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9490A106F34030FBB6AAA664 /* Pods-Bluedit-BlueditTests.release.xcconfig */;
+			baseConfigurationReference = 082C92C0518A56A0A722D735 /* Pods-Bluedit-BlueditTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -463,7 +463,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 08D5F7E00AE59A7CD84B1A9C /* Pods-Bluedit.debug.xcconfig */;
+			baseConfigurationReference = C2D63744F525292CB573CF76 /* Pods-Bluedit.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -490,7 +490,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7F4DB713F7B5543CAB766ECC /* Pods-Bluedit.release.xcconfig */;
+			baseConfigurationReference = BFD0D7136FC2890687D3E8A2 /* Pods-Bluedit.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

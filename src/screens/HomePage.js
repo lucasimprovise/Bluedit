@@ -1,37 +1,43 @@
-import React from 'react';
-import {View, Text, FlatList} from 'react-native';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import styled from 'styled-components/native';
+import React, { useEffect } from "react";
+import { View, Text, FlatList } from "react-native";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import MyProfile from "./MyProfile";
+import UserRedirect from "./../components/UserRedirect";
+import Authentication from "./Authentication";
+import styled from "styled-components/native";
+import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+import AuthOrProfile from "./../components/AuthOrProfile";
 
-import logo from './../assets/bluedit-logo.png';
+import logo from "./../assets/bluedit-logo.png";
 
 const fakeCommunities = [
-  {id: '1', name: 'r/ReactNative'},
-  {id: '2', name: 'r/JavaScript'},
-  {id: '3', name: 'r/Python'},
+  { id: "1", name: "r/ReactNative" },
+  { id: "2", name: "r/JavaScript" },
+  { id: "3", name: "r/Python" },
 ];
 
 const fakePosts = [
   {
-    id: '1',
-    title: 'React Native is amazing!',
-    author: 'JohnDoe',
-    community: 'r/ReactNative',
+    id: "1",
+    title: "React Native is amazing!",
+    author: "JohnDoe",
+    community: "r/ReactNative",
     upvotes: 340,
   },
   {
-    id: '2',
-    title: 'JavaScript vs TypeScript',
-    author: 'JaneDoe',
-    community: 'r/JavaScript',
+    id: "2",
+    title: "JavaScript vs TypeScript",
+    author: "JaneDoe",
+    community: "r/JavaScript",
     upvotes: 275,
   },
   {
-    id: '3',
-    title: 'Python for Data Science',
-    author: 'DataMaster',
-    community: 'r/Python',
+    id: "3",
+    title: "Python for Data Science",
+    author: "DataMaster",
+    community: "r/Python",
     upvotes: 420,
   },
 ];
@@ -43,8 +49,8 @@ const CommunitiesScreen = () => {
     <View>
       <FlatList
         data={fakeCommunities}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => (
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
           <CommunityContainer>
             <CommunityName>{item.name}</CommunityName>
           </CommunityContainer>
@@ -59,8 +65,8 @@ const PopularScreen = () => {
     <View>
       <FlatList
         data={fakePosts}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => (
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
           <PostContainer>
             <PostTitle>{item.title}</PostTitle>
             <PostDetails>
@@ -78,29 +84,38 @@ const HomeTabs = () => {
   return (
     <TopTab.Navigator
       tabBarOptions={{
-        activeTintColor: '#ffffff',
-        inactiveTintColor: '#aaaaaa',
-        style: {backgroundColor: '#0047b3'},
-      }}>
+        activeTintColor: "#ffffff",
+        inactiveTintColor: "#aaaaaa",
+        style: { backgroundColor: "#0047b3" },
+      }}
+    >
       <TopTab.Screen name="Communities" component={CommunitiesScreen} />
       <TopTab.Screen name="Popular" component={PopularScreen} />
     </TopTab.Navigator>
   );
 };
 
-const UserProfile = () => {
-  return (
-    <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
-      <Text>User Profile Screen</Text>
-    </View>
-  );
-};
-
 const BottomTab = createBottomTabNavigator();
 
 const HomePage = () => {
+  const currentUser = useSelector((state) => state.currentUser);
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    // Cette fonction sera exécutée lorsque currentUser change
+    navigation.navigate("MyProfile");
+  }, [currentUser, navigation]);
+
   const handleCreate = () => {
-    alert('Créer une nouvelle communauté ou un nouveau post');
+    alert("Créer une nouvelle communauté ou un nouveau post");
+  };
+
+  const RedirectToProfileOrAuth = () => {
+    if (currentUser) {
+      return MyProfile;
+    } else {
+      return Authentication;
+    }
   };
 
   return (
@@ -108,7 +123,7 @@ const HomePage = () => {
       <Logo source={logo} />
       <BottomTab.Navigator>
         <BottomTab.Screen name="Home" component={HomeTabs} />
-        <BottomTab.Screen name="User" component={UserProfile} />
+        <BottomTab.Screen name="User" component={AuthOrProfile} />
       </BottomTab.Navigator>
       <CreateButton onPress={handleCreate}>
         <CreateButtonText>+</CreateButtonText>
