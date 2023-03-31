@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, FlatList } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MyProfile from "./MyProfile";
+import UserRedirect from "./../components/UserRedirect";
+import Authentication from "./Authentication";
 import styled from "styled-components/native";
+import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+import AuthOrProfile from "./../components/AuthOrProfile";
 
 import logo from "./../assets/bluedit-logo.png";
 
@@ -90,19 +95,27 @@ const HomeTabs = () => {
   );
 };
 
-const UserProfile = () => {
-  return (
-    <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
-      <Text>User Profile Screen</Text>
-    </View>
-  );
-};
-
 const BottomTab = createBottomTabNavigator();
 
 const HomePage = () => {
+  const currentUser = useSelector((state) => state.currentUser);
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    // Cette fonction sera exécutée lorsque currentUser change
+    navigation.navigate("MyProfile");
+  }, [currentUser, navigation]);
+
   const handleCreate = () => {
     alert("Créer une nouvelle communauté ou un nouveau post");
+  };
+
+  const RedirectToProfileOrAuth = () => {
+    if (currentUser) {
+      return MyProfile;
+    } else {
+      return Authentication;
+    }
   };
 
   return (
@@ -110,7 +123,7 @@ const HomePage = () => {
       <Logo source={logo} />
       <BottomTab.Navigator>
         <BottomTab.Screen name="Home" component={HomeTabs} />
-        <BottomTab.Screen name="User" component={MyProfile} />
+        <BottomTab.Screen name="User" component={AuthOrProfile} />
       </BottomTab.Navigator>
       <CreateButton onPress={handleCreate}>
         <CreateButtonText>+</CreateButtonText>
