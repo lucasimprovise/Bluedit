@@ -4,8 +4,7 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import styled from 'styled-components/native';
 
-// Ajoutez l'URL de votre logo ici
-import logo from './assets/bluedit-logo.png';
+import logo from './../assets/bluedit-logo.png';
 
 const fakeCommunities = [
   {id: '1', name: 'r/ReactNative'},
