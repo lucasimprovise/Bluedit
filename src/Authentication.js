@@ -2,14 +2,20 @@
 import React, {useState} from 'react';
 import {Alert} from 'react-native';
 import auth from '@react-native-firebase/auth';
+import {useDispatch, useSelector} from 'react-redux';
 import styled from 'styled-components';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {loginUser} from './store/actions/auth';
 
 // Component
 const Authentication = () => {
   // State
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const dispatch = useDispatch();
+
+  const {user} = useSelector(state => state.auth);
 
   // Navigation
   const navigation = useNavigation();
@@ -26,9 +32,22 @@ const Authentication = () => {
     }
   };
 
+  useFocusEffect(
+    React.useCallback(() => {
+      const unsubscribe = auth().onAuthStateChanged(userAuth => {
+        if (userAuth) {
+          dispatch(loginUser(userAuth));
+          navigation.navigate('HomePage');
+        }
+      });
+      return () => unsubscribe();
+    }, [navigation, dispatch]),
+  );
+
   const signIn = async () => {
     try {
       await auth().signInWithEmailAndPassword(email, password);
+      dispatch(loginUser(auth().currentUser));
       Alert.alert(' Success', 'You have successfully signed in');
       navigation.navigate('HomePage');
     } catch (error) {

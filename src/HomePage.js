@@ -3,9 +3,11 @@ import {View, Text, FlatList} from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import styled from 'styled-components/native';
+import {useSelector} from 'react-redux';
 
 // Ajoutez l'URL de votre logo ici
 import logo from './assets/bluedit-logo.png';
+import {useNavigation} from '@react-navigation/native';
 
 const fakeCommunities = [
   {id: '1', name: 'r/ReactNative'},
@@ -100,8 +102,15 @@ const UserProfile = () => {
 const BottomTab = createBottomTabNavigator();
 
 const HomePage = () => {
+  const navigation = useNavigation();
+
+  const {user} = useSelector(state => state.auth);
+
+  console.log(user);
+
   const handleCreate = () => {
-    alert('Créer une nouvelle communauté ou un nouveau post');
+    navigation.navigate('CreatePostScreen');
+    // alert('Créer une nouvelle communauté ou un nouveau post');
   };
 
   return (
