@@ -1,38 +1,46 @@
 // Import statements
-import React, {useState} from 'react';
-import {Alert} from 'react-native';
-import auth from '@react-native-firebase/auth';
-import styled from 'styled-components';
-import {useNavigation} from '@react-navigation/native';
+import React, { useState } from "react";
+import { Alert } from "react-native";
+import auth from "@react-native-firebase/auth";
+import styled from "styled-components";
+import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
 
 // Component
 const Authentication = () => {
   // State
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   // Navigation
   const navigation = useNavigation();
+
+  // Redux
+  const dispatch = useDispatch();
 
   // Functions
   const signUp = async () => {
     try {
       await auth().createUserWithEmailAndPassword(email, password);
-      Alert.alert('Success', 'Your account has been created successfully');
+      Alert.alert("Success", "Your account has been created successfully");
       // Naviguer vers la page d'accueil
-      navigation.navigate('HomePage');
+      navigation.navigate("HomePage");
     } catch (error) {
-      Alert.alert('Error', error.message);
+      Alert.alert("Error", error.message);
     }
   };
 
   const signIn = async () => {
     try {
       await auth().signInWithEmailAndPassword(email, password);
-      Alert.alert(' Success', 'You have successfully signed in');
-      navigation.navigate('HomePage');
+      Alert.alert("Success", "You have successfully signed in");
+
+      // Mettre à jour l'état d'authentification dans Redux
+      dispatch({ type: "LOGIN" });
+
+      navigation.navigate("HomePage");
     } catch (error) {
-      Alert.alert('Error', error.message);
+      Alert.alert("Error", error.message);
     }
   };
 
