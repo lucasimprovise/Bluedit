@@ -19,7 +19,8 @@ export default {
       sign_up: 'Sign up',
       sign_in: 'Sign in',
       email: 'Email',
-      password: 'Password'
+      password: 'Password',
+      username: 'Username'
     },
     success: 'Success',
     error: 'Error',

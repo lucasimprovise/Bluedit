@@ -5,11 +5,12 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
+  console.log('Reducer', action);
   switch (action.type) {
     case LOGIN_USER:
       return {
         ...state,
-        user: action.user,
+        user: action.payload,
       };
     case LOGOUT_USER:
       return {

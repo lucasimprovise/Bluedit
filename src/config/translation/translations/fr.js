@@ -19,7 +19,8 @@ export default {
       sign_up: "S'inscrire",
       sign_in: "S'identifier",
       email: 'Email',
-      password: 'Mot de passe'
+      password: 'Mot de passe',
+      username: 'Nom d\'utilisateur'
     },
     success: 'Succès',
     settings: 'Paramètres',

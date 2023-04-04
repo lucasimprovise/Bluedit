@@ -2,16 +2,11 @@ import React, { useEffect } from 'react'
 import { View, Text, FlatList } from 'react-native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import MyProfile from './MyProfile'
-import UserRedirect from './../components/UserRedirect'
-import Authentication from './Authentication'
 import styled from 'styled-components/native'
-import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
-import AuthOrProfile from './../components/AuthOrProfile'
 import { useTranslation } from 'react-i18next'
 import logo from './../assets/bluedit-logo.png'
-import Login from './Login'
+import ProfileScreen from './MyProfile'
 
 const fakeCommunities = [
   { id: '1', name: 'r/ReactNative' },
@@ -86,13 +81,16 @@ const PopularScreen = () => {
 const HomeTabs = () => {
   const { t } = useTranslation()
 
+  const topTabStyles = {
+    activeTintColor: '#ffffff',
+    inactiveTintColor: '#aaaaaa',
+    style: {
+      backgroundColor: '#1e90ff'
+    }
+  }
+
   return (
-    <TopTab.Navigator
-      tabBarOptions={{
-        activeTintColor: '#ffffff',
-        inactiveTintColor: '#aaaaaa',
-        style: { backgroundColor: '#0047b3' }
-      }}>
+    <TopTab.Navigator screenOptions={topTabStyles}>
       <TopTab.Screen name={t('communities')} component={CommunitiesScreen} />
       <TopTab.Screen name={t('popular')} component={PopularScreen} />
     </TopTab.Navigator>
@@ -102,30 +100,11 @@ const HomeTabs = () => {
 const BottomTab = createBottomTabNavigator()
 
 const HomePage = () => {
-  const currentUser = useSelector((state) => state.currentUser)
   const navigation = useNavigation()
-
-  useEffect(() => {
-    // Cette fonction sera exécutée lorsque currentUser change
-    navigation.navigate('MyProfile')
-  }, [currentUser, navigation])
-
-  const RedirectToProfileOrAuth = () => {
-    if (currentUser) {
-      return MyProfile
-    } else {
-      // return Authentication
-      return Login
-    }
-  }
 
   const screenOptions = {
     headerShown: false
   }
-
-  const { user } = useSelector((state) => state.auth)
-
-  console.log(user)
 
   const handleCreate = () => {
     navigation.navigate('CreatePostScreen')
@@ -137,7 +116,7 @@ const HomePage = () => {
       <Logo source={logo} />
       <BottomTab.Navigator initialRouteName="Home">
         <BottomTab.Screen name="Home" options={screenOptions} component={HomeTabs} />
-        <BottomTab.Screen name="User" options={screenOptions} component={AuthOrProfile} />
+        <BottomTab.Screen name="User" options={screenOptions} component={ProfileScreen} />
       </BottomTab.Navigator>
       <CreateButton onPress={handleCreate}>
         <CreateButtonText>+</CreateButtonText>

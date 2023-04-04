@@ -1,19 +1,19 @@
 // Import statements
-import React, { useState } from 'react'
-import { Alert, Text, TouchableOpacity } from "react-native";
+import React, { useState, useContext } from 'react'
+import { Alert, Text, TouchableOpacity } from 'react-native'
 import auth from '@react-native-firebase/auth'
 import styled from 'styled-components'
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { User } from "../models/User";
-
-
+import { store } from '../store/store'
+import { AppContext } from '../../App'
 
 // Component
-const Login = ({ navigation }) => {
+const Login = () => {
   const { t } = useTranslation()
-  // State
+  const { setIsSignedIn } = useContext(AppContext)
+
   const [email, setEmail] = useState('aubin@gmail.com')
   const [password, setPassword] = useState('aubin77')
 
@@ -24,34 +24,29 @@ const Login = ({ navigation }) => {
   const dispatch = useDispatch()
 
   // Functions
-  const signUp = async () => {
-    try {
-      await auth().createUserWithEmailAndPassword(email, password)
-      Alert.alert(t('success'), t('auth.success_register'))
-      // Naviguer vers la page d'accueil
-      navigation.navigate('HomePage')
-    } catch (error) {
-      Alert.alert('Error', error.message)
-    }
-  }
-
   const signIn = async () => {
     try {
-      await auth().signInWithEmailAndPassword(email, password)
-      Alert.alert(t('success'), t('auth.success_login'))
+      await auth()
+        .signInWithEmailAndPassword(email, password)
+        .then((res) => {
+          console.log('User', res.user)
+          Alert.alert(t('success'), t('auth.success_login'))
 
-      // Mettre à jour l'état d'authentification dans Redux
-      dispatch({ type: 'LOGIN' })
+          // Mettre à jour l'état de l'authentification dans le store Redux avec l'objet res.user puis en faire un console.log pour vérifier si le nouvel état a bien été enregistré
+          dispatch({ type: 'LOGIN_USER', payload: res.user })
 
-      navigation.navigate('HomePage')
+          setIsSignedIn(true)
+
+          navigation.navigate('HomePage')
+        })
     } catch (error) {
       Alert.alert('Error', error.message)
     }
   }
 
   const handleGoRegister = () => {
-    navigation.navigate("Register");
-  };
+    navigation.navigate('Register')
+  }
 
   // Return statement
   return (
@@ -62,19 +57,8 @@ const Login = ({ navigation }) => {
           <RegisterTitle>{t('auth.sign_up')}</RegisterTitle>
         </TouchableOpacity>
       </TitleContainer>
-      <TextInput
-        placeholder={t('auth.email')}
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
-      <TextInput
-        placeholder={t('auth.password')}
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
+      <TextInput placeholder={t('auth.email')} value={email} onChangeText={setEmail} keyboardType="email-address" autoCapitalize="none" />
+      <TextInput placeholder={t('auth.password')} value={password} onChangeText={setPassword} secureTextEntry />
       <Button onPress={signIn}>
         <ButtonText>{t('auth.sign_in')}</ButtonText>
       </Button>
@@ -93,21 +77,21 @@ const TitleContainer = styled.View`
   flex-direction: row;
   align-items: center;
   margin-bottom: 10px;
-`;
+`
 
 const LoginTitle = styled.Text`
   font-size: 24px;
   font-weight: bold;
   text-decoration-line: underline;
   margin-right: 10px;
-`;
+`
 
 const RegisterTitle = styled.Text`
   font-size: 24px;
   font-weight: bold;
   margin-right: 10px;
   color: #007bff;
-`;
+`
 
 const TextInput = styled.TextInput`
   width: 80%;
@@ -128,4 +112,4 @@ const ButtonText = styled.Text`
   color: #ffffff;
 `
 
-export default Login;
+export default Login
