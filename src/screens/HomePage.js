@@ -10,7 +10,6 @@ import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import AuthOrProfile from './../components/AuthOrProfile'
 import { useTranslation } from 'react-i18next'
-
 import logo from './../assets/bluedit-logo.png'
 
 const fakeCommunities = [
@@ -110,10 +109,6 @@ const HomePage = () => {
     navigation.navigate('MyProfile')
   }, [currentUser, navigation])
 
-  const handleCreate = () => {
-    alert('Créer une nouvelle communauté ou un nouveau post')
-  }
-
   const RedirectToProfileOrAuth = () => {
     if (currentUser) {
       return MyProfile
@@ -124,6 +119,15 @@ const HomePage = () => {
 
   const screenOptions = {
     headerShown: false
+  }
+
+  const { user } = useSelector((state) => state.auth)
+
+  console.log(user)
+
+  const handleCreate = () => {
+    navigation.navigate('CreatePostScreen')
+    // alert('Créer une nouvelle communauté ou un nouveau post');
   }
 
   return (

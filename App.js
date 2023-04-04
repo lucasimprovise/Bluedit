@@ -1,13 +1,11 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import Authentication from './src/Authentication'
 import { Provider } from 'react-redux'
-import store from './redux/store'
-import HomePage from './src/screens/HomePage'
-import MyProfile from './src/screens/MyProfile'
-import Authentication from './src/screens/Authentication'
-import Settings from './src/screens/Settings'
-import './src/config/translation'
+import HomePage from './src/HomePage'
+import { store } from './src/store/store'
+import CreatePostScreen from './src/CreatePostScreen'
 
 const Stack = createStackNavigator()
 
@@ -19,11 +17,12 @@ const App = () => {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName='Authentication'>
+        <Stack.Navigator initialRouteName="Authentication">
           <Stack.Screen name="Authentication" component={Authentication} options={screenOptions} />
           <Stack.Screen name="HomePage" component={HomePage} options={screenOptions} />
           <Stack.Screen name="MyProfile" component={MyProfile} options={screenOptions} />
           <Stack.Screen name="Settings" component={Settings} options={screenOptions} />
+          <Stack.Screen name="CreatePostScreen" component={CreatePostScreen} options={screenOptions} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
