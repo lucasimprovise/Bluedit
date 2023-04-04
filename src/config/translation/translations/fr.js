@@ -30,6 +30,7 @@ export default {
     communities: 'Communautés',
     popular: 'Populaire',
     history: 'Historique',
-    change_language: 'Changer de langue'
+    change_language: 'Changer de langue',
+    share: 'Partager',
   }
 }

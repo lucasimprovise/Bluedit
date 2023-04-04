@@ -1,9 +1,27 @@
 import React from 'react'
 import styled from 'styled-components/native'
 import { useTranslation } from 'react-i18next'
+import { Share } from 'react-native'
 
-const Post = ({ title, upvotes, downvotes, comments }) => {
+const Post = ({ title, upvotes, downvotes, comments, id }) => {
   const { t } = useTranslation()
+
+  const sharePost = async () => {
+    try {
+      const result = await Share.share({
+        message: `${title}\n\nhttps://www.bluedit.com/posts/${id}`,
+        url: `https://www.bluedit.com/posts/${id}`,
+        title: 'Partager le post'
+      })
+      if (result.action === Share.sharedAction) {
+        console.log('Content shared successfully')
+      } else if (result.action === Share.dismissedAction) {
+        console.log('Sharing was dismissed')
+      }
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
 
   return (
     <PostContainer>
@@ -15,6 +33,9 @@ const Post = ({ title, upvotes, downvotes, comments }) => {
       <PostComments>
         {comments.length} {t('comments')}
       </PostComments>
+      <ShareButton onPress={sharePost}>
+        <ShareText>{t('share')}</ShareText>
+      </ShareButton>
     </PostContainer>
   )
 }
@@ -51,6 +72,22 @@ const PostDownvotes = styled.Text`
 const PostComments = styled.Text`
   font-size: 12px;
   color: #999;
+`
+
+const ShareButton = styled.TouchableOpacity`
+  width: 50px;
+  background-color: #2f6de7;
+  border-radius: 50px;
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+`
+
+const ShareText = styled.Text`
+  color: #fff;
+  font-size: 12px;
+  padding: 4px;
+  text-align: center;
 `
 
 export default Post

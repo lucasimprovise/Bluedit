@@ -33,6 +33,7 @@ export default {
     communities: 'Communities',
     popular: 'Popular',
     history: 'History',
-    change_language: 'Change language'
+    change_language: 'Change language',
+    share: 'Share',
   }
 }
