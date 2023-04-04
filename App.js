@@ -5,7 +5,8 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import HomePage from "./src/screens/HomePage";
 import MyProfile from "./src/screens/MyProfile";
-import Authentication from "./src/screens/Authentication";
+import Login from "./src/screens/Login";
+import Register from "./src/screens/Register";
 
 const Stack = createStackNavigator();
 
@@ -29,8 +30,13 @@ const App = () => {
             options={screenOptions}
           />
           <Stack.Screen
-            name="Authentication"
-            component={Authentication}
+            name="Register"
+            component={Register}
+            options={screenOptions}
+          />
+          <Stack.Screen
+            name="Login"
+            component={Login}
             options={screenOptions}
           />
         </Stack.Navigator>

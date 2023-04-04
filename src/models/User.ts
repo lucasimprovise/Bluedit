@@ -1,6 +1,7 @@
 import firestore from "@react-native-firebase/firestore";
 import { Community } from "./Community";
 import { Post } from "./Post";
+import firebase from "@react-native-firebase/app";
 const USERS = firestore().collection("Users");
 
 export class User {
@@ -16,33 +17,34 @@ export class User {
 
   private constructor() {}
 
-  public createUserObj(
-    mail: string,
-    username: string,
-    password: string,
-    description: string
-  ): User {
+  public createUserObj(mail: string, username: string, password: string): User {
     this.mail = mail;
     this.username = username;
     this.password = password;
-    this.description = description;
 
     return this;
   }
 
   addUser() {
-    USERS.add({
-      mail: this.mail,
-      username: this.username,
-      password: this.password,
-      description: this.description,
-    })
-      .then((docRef: any) => {
-        console.log("Document ajouté avec ID: ", docRef.id);
-      })
-      .catch((error: any) => {
-        console.error("Erreur lors de l'ajout du document: ", error);
-      });
+    if (this.mail != null && this.password != null) {
+      try {
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(this.mail, this.password)
+          .then((userCred) => {
+            USERS.doc(userCred.user.uid)
+              .set({
+                mail: this.mail,
+                username: this.username,
+                password: this.password,
+              })
+              .then();
+          });
+      } catch (e) {
+        console.log("Erreur lors de l'auth", e);
+        throw e;
+      }
+    }
   }
 
   static editUser(id: string, update: {}) {

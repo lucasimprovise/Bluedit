@@ -10,7 +10,7 @@ const UserRedirect = ({ navigation }) => {
     if (isAuthenticated) {
       navigation.navigate("MyProfile");
     } else {
-      navigation.navigate("Authentication");
+      navigation.navigate("Login");
     }
   }, [isAuthenticated, navigation]);
 

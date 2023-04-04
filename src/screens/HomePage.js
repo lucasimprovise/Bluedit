@@ -3,8 +3,7 @@ import { View, Text, FlatList } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MyProfile from "./MyProfile";
-import UserRedirect from "./../components/UserRedirect";
-import Authentication from "./Authentication";
+import Login from "./Login";
 import styled from "styled-components/native";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
@@ -114,7 +113,7 @@ const HomePage = () => {
     if (currentUser) {
       return MyProfile;
     } else {
-      return Authentication;
+      return Login;
     }
   };
 

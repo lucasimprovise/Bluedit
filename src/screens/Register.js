@@ -1,27 +1,24 @@
 // Import statements
 import React, { useState } from "react";
-import { Alert } from "react-native";
+import { Alert, Text, TouchableOpacity } from "react-native";
 import auth from "@react-native-firebase/auth";
 import styled from "styled-components";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
+import { User } from "../models/User";
 
 // Component
-const Authentication = () => {
+const Register = ({ navigation }) => {
   // State
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  // Navigation
-  const navigation = useNavigation();
-
-  // Redux
-  const dispatch = useDispatch();
+  const [username, setUsername] = useState("");
 
   // Functions
   const signUp = async () => {
     try {
-      await auth().createUserWithEmailAndPassword(email, password);
+      const newUser = new User().createUserObj(email, username, password);
+      newUser.addUser();
       Alert.alert("Success", "Your account has been created successfully");
       // Naviguer vers la page d'accueil
       navigation.navigate("HomePage");
@@ -30,23 +27,19 @@ const Authentication = () => {
     }
   };
 
-  const signIn = async () => {
-    try {
-      await auth().signInWithEmailAndPassword(email, password);
-      Alert.alert("Success", "You have successfully signed in");
-
-      // Mettre à jour l'état d'authentification dans Redux
-      dispatch({ type: "LOGIN" });
-
-      navigation.navigate("HomePage");
-    } catch (error) {
-      Alert.alert("Error", error.message);
-    }
+  const handleGoLogin = () => {
+    navigation.navigate("Login");
   };
 
   // Return statement
   return (
     <Container>
+      <TitleContainer>
+        <TouchableOpacity onPress={handleGoLogin}>
+          <LoginTitle>Login</LoginTitle>
+        </TouchableOpacity>
+        <RegisterTitle>Register</RegisterTitle>
+      </TitleContainer>
       <TextInput
         placeholder="Email"
         value={email}
@@ -60,11 +53,13 @@ const Authentication = () => {
         onChangeText={setPassword}
         secureTextEntry
       />
-      <Button onPress={signUp}>
+      <TextInput
+        placeholder="Username"
+        value={username}
+        onChangeText={setUsername}
+      />
+      <Button onPress={signUp()}>
         <ButtonText>Sign Up</ButtonText>
-      </Button>
-      <Button onPress={signIn}>
-        <ButtonText>Sign In</ButtonText>
       </Button>
     </Container>
   );
@@ -75,6 +70,26 @@ const Container = styled.View`
   justify-content: center;
   align-items: center;
   background-color: #ffffff;
+`;
+
+const TitleContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+
+const RegisterTitle = styled.Text`
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration-line: underline;
+  margin-right: 10px;
+`;
+
+const LoginTitle = styled.Text`
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 10px;
+  color: #007bff;
 `;
 
 const TextInput = styled.TextInput`
@@ -96,4 +111,4 @@ const ButtonText = styled.Text`
   color: #ffffff;
 `;
 
-export default Authentication;
+export default Register;
