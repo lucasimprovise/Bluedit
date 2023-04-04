@@ -58,7 +58,7 @@ const Register = ({ navigation }) => {
         value={username}
         onChangeText={setUsername}
       />
-      <Button onPress={signUp()}>
+      <Button onPress={signUp}>
         <ButtonText>Sign Up</ButtonText>
       </Button>
     </Container>
