@@ -10,6 +10,7 @@ import Login from './src/screens/Login'
 import Register from './src/screens/Register'
 import Settings from './src/screens/Settings'
 import './src/config/translation'
+import SplashScreen from './src/components/SplashScreen'
 
 const Stack = createStackNavigator()
 
@@ -33,7 +34,8 @@ const App = () => {
     <AppContext.Provider value={appContextValue}>
       <Provider store={store}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Login">
+          <Stack.Navigator initialRouteName="SplashScreen">
+            <Stack.Screen name="SplashScreen" component={(props) => <SplashScreen {...props} isSignedIn={isSignedIn} />} options={screenOptions} />
             <Stack.Screen name="Login" component={Login} options={screenOptions} />
             <Stack.Screen name="Register" component={Register} options={screenOptions} />
 
