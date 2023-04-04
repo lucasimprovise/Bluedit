@@ -1,25 +1,27 @@
-import firestore from '@react-native-firebase/firestore';
-import {User} from './User';
-import {Community} from './Community';
-import {Comments} from './Comments';
-const POSTS = firestore().collection('Posts');
+import firestore from "@react-native-firebase/firestore";
+import { User } from "./User";
+import { Community } from "./Community";
+import { Comments } from "./Comments";
+const POSTS = firestore().collection("Posts");
 
 export class Post {
-  id: string | undefined;
-  title: string;
-  content: string;
-  upVote: number;
-  downVote: number;
-  date: Date;
-  author: User;
-  community: Community;
-  comments: Comments | undefined;
+  id?: string;
+  title?: string;
+  content?: string;
+  upVote?: number;
+  downVote?: number;
+  date?: Date;
+  author?: User;
+  community?: Community;
+  comments?: Comments;
 
-  constructor(
+  constructor() {}
+
+  createPostObj(
     title: string,
     content: string,
     author: User,
-    community: Community,
+    community: Community
   ) {
     this.title = title;
     this.content = content;
@@ -28,6 +30,8 @@ export class Post {
     this.downVote = 0;
     this.date = new Date();
     this.community = community;
+
+    return this;
   }
 
   createPost() {
@@ -41,7 +45,8 @@ export class Post {
       community: this.community,
     })
       .then((docRef: any) => {
-        console.log('Document ajouté avec ID: ', docRef.id);
+        console.log("Document ajouté avec ID: ", docRef.id);
+        this.author?.addPosts(Post.getPost(docRef.id));
       })
       .catch((error: any) => {
         console.error("Erreur lors de l'ajout du document: ", error);
@@ -52,7 +57,7 @@ export class Post {
     POSTS.doc(id)
       .delete()
       .then((docRef: any) => {
-        console.log('Document supprimer : ', docRef);
+        console.log("Document supprimer : ", docRef);
       })
       .catch((error: any) => {
         console.log("Erreur lors de la suppression de l'objet", error);
@@ -62,24 +67,28 @@ export class Post {
   static getPost(id: string) {
     POSTS.doc(id)
       .get()
-      .then(documentSnapshot => {
-        console.log('Tag exists: ', documentSnapshot.data());
+      .then((documentSnapshot) => {
+        console.log("Tag exists: ", documentSnapshot.data());
+        let post: Post = Object.assign(new Post(), documentSnapshot.data());
+        post.id = id;
+        return post;
       })
       .catch((error: any) => {
-        console.log('Erreur lors de la recuperation via ID', error);
+        console.log("Erreur lors de la recuperation via ID", error);
       });
+    return new Post();
   }
 
   static getPostByTitle(field: string) {
-    POSTS.where('username', '==', field)
+    POSTS.where("username", "==", field)
       .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(documentSnapshot => {
-          console.log('Tag ID: ', documentSnapshot.id, documentSnapshot.data());
+      .then((querySnapshot) => {
+        querySnapshot.forEach((documentSnapshot) => {
+          console.log("Tag ID: ", documentSnapshot.id, documentSnapshot.data());
         });
       })
       .catch((error: any) => {
-        console.log('Erreur lors de la recuperation via ID', error);
+        console.log("Erreur lors de la recuperation via ID", error);
       });
   }
 }

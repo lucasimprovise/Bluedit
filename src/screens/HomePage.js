@@ -11,6 +11,7 @@ import { useNavigation } from '@react-navigation/native'
 import AuthOrProfile from './../components/AuthOrProfile'
 import { useTranslation } from 'react-i18next'
 import logo from './../assets/bluedit-logo.png'
+import Login from './Login'
 
 const fakeCommunities = [
   { id: '1', name: 'r/ReactNative' },
@@ -113,7 +114,8 @@ const HomePage = () => {
     if (currentUser) {
       return MyProfile
     } else {
-      return Authentication
+      // return Authentication
+      return Login
     }
   }
 

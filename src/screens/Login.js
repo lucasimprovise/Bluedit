@@ -1,17 +1,18 @@
 // Import statements
 import React, { useState } from 'react'
-import { Alert } from 'react-native'
+import { Alert, Text, TouchableOpacity } from "react-native";
 import auth from '@react-native-firebase/auth'
 import styled from 'styled-components'
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import { User } from "../models/User";
+
+
 
 // Component
-const Authentication = () => {
-  // Translation
+const Login = ({ navigation }) => {
   const { t } = useTranslation()
-
   // State
   const [email, setEmail] = useState('aubin@gmail.com')
   const [password, setPassword] = useState('aubin77')
@@ -48,14 +49,32 @@ const Authentication = () => {
     }
   }
 
+  const handleGoRegister = () => {
+    navigation.navigate("Register");
+  };
+
   // Return statement
   return (
     <Container>
-      <TextInput placeholder={t('auth.email')} value={email} onChangeText={setEmail} keyboardType="email-address" autoCapitalize="none" />
-      <TextInput placeholder={t('auth.password')} value={password} onChangeText={setPassword} secureTextEntry />
-      <Button onPress={signUp}>
-        <ButtonText>{t('auth.sign_up')}</ButtonText>
-      </Button>
+      <TitleContainer>
+        <LoginTitle>{t('auth.sign_in')}</LoginTitle>
+        <TouchableOpacity onPress={handleGoRegister}>
+          <RegisterTitle>{t('auth.sign_up')}</RegisterTitle>
+        </TouchableOpacity>
+      </TitleContainer>
+      <TextInput
+        placeholder={t('auth.email')}
+        value={email}
+        onChangeText={setEmail}
+        keyboardType="email-address"
+        autoCapitalize="none"
+      />
+      <TextInput
+        placeholder={t('auth.password')}
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+      />
       <Button onPress={signIn}>
         <ButtonText>{t('auth.sign_in')}</ButtonText>
       </Button>
@@ -69,6 +88,26 @@ const Container = styled.View`
   align-items: center;
   background-color: #ffffff;
 `
+
+const TitleContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+
+const LoginTitle = styled.Text`
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration-line: underline;
+  margin-right: 10px;
+`;
+
+const RegisterTitle = styled.Text`
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 10px;
+  color: #007bff;
+`;
 
 const TextInput = styled.TextInput`
   width: 80%;
@@ -89,4 +128,4 @@ const ButtonText = styled.Text`
   color: #ffffff;
 `
 
-export default Authentication
+export default Login;
