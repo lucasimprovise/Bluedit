@@ -1,5 +1,6 @@
-export const INCREMENT_COUNTER = 'INCREMENT_COUNTER';
+export const CREATE_POST = 'CREATE_POST';
 
-export const incrementCounter = () => ({
-  type: INCREMENT_COUNTER,
+export const createPost = post => ({
+  type: CREATE_POST,
+  post,
 });

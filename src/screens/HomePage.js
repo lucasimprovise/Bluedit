@@ -70,6 +70,8 @@ const CommunitiesScreen = () => {
 };
 
 const PopularScreen = () => {
+  const { posts } = useSelector(state => state.post);
+
   return (
     <View>
       <FlatList
@@ -82,6 +84,14 @@ const PopularScreen = () => {
               {item.community} - Posted by u/{item.author}
             </PostDetails>
             <PostUpvotes>Upvotes: {item.upvotes}</PostUpvotes>
+          </PostContainer>
+        )}
+      />
+      <FlatList
+        data={posts}
+        renderItem={({ item }) => (
+          <PostContainer>
+            <PostTitle>{item.title}</PostTitle>
           </PostContainer>
         )}
       />

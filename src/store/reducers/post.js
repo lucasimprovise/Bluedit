@@ -1,15 +1,15 @@
-import {INCREMENT_COUNTER} from '../actions/post';
+import {CREATE_POST} from '../actions/post';
 
 const initialState = {
-  value: 0,
+  posts: [],
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case INCREMENT_COUNTER:
+    case CREATE_POST:
       return {
         ...state,
-        value: state.value + 1,
+        posts: [...state.posts, action.post],
       };
     default:
       return state;
