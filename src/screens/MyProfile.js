@@ -1,38 +1,45 @@
-import React, { useState } from "react";
-import styled from "styled-components/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import PostsScreen from "../components/ProfileTabs/Posts";
-import CommunitiesScreen from "../components/ProfileTabs/Communities";
-import HistoryScreen from "../components/ProfileTabs/History";
-import { useDispatch } from "react-redux";
+import React, { useState } from 'react';
+import styled from 'styled-components/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import PostsScreen from '../components/ProfileTabs/Posts';
+import CommunitiesScreen from '../components/ProfileTabs/Communities';
+import HistoryScreen from '../components/ProfileTabs/History';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutUser } from '../store/actions/auth';
+import { useNavigation } from '@react-navigation/native';
 
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = () => {
+  const navigation = useNavigation();
+
+  const auth = useSelector(state => state);
+
   const [user, setUser] = useState({
-    mail: "aubin@gmail.com",
-    pseudo: "AubinLeThug",
-    avatar: "https://i.imgur.com/8Km9tLL.png",
-    bio: "Je suis un thug",
+    mail: 'aubin@gmail.com',
+    pseudo: 'AubinLeThug',
+    avatar: 'https://i.imgur.com/8Km9tLL.png',
+    bio: 'Je suis un thug',
   });
 
   const [forumsCreated, setForumsCreated] = useState([
     {
-      name: "Pêche en eau douce",
-      description: "Tout sur la pêche en eau douce",
+      name: 'Pêche en eau douce',
+      description: 'Tout sur la pêche en eau douce',
     },
   ]);
 
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch(logout());
+    dispatch(logoutUser());
+    navigation.navigate('Login');
   };
 
   const handleEditProfile = () => {
-    navigation.navigate("EditProfile");
+    navigation.navigate('EditProfile');
   };
 
   const handleGoHome = () => {
-    navigation.navigate("HomePage");
+    navigation.navigate('HomePage');
   };
 
   const TopTab = createBottomTabNavigator();
@@ -46,6 +53,9 @@ const ProfileScreen = ({ navigation }) => {
           <UserDescription>{user.bio}</UserDescription>
         </User>
         <ButtonContainer>
+          <LogoutButton onPress={handleLogout}>
+            <LogoutButtonText>Déconnexion</LogoutButtonText>
+          </LogoutButton>
           <HomeButton onPress={handleGoHome}>
             <HomeButtonText>Accueil</HomeButtonText>
           </HomeButton>
@@ -56,23 +66,23 @@ const ProfileScreen = ({ navigation }) => {
       </ProfileHeader>
 
       <TopTab.Navigator
-        initialRouteName="Posts"
+        initialRouteName='Posts'
         screenOptions={{
-          tabBarActiveTintColor: "#2f6de7",
-          tabBarInactiveTintColor: "#000",
+          tabBarActiveTintColor: '#2f6de7',
+          tabBarInactiveTintColor: '#000',
           tabBarStyle: {
             elevation: 0,
-            width: "100%",
-            position: "absolute",
+            width: '100%',
+            position: 'absolute',
             top: 0,
             left: 0,
             right: 0,
           },
         }}
       >
-        <TopTab.Screen name="Posts" component={PostsScreen} />
-        <TopTab.Screen name="Communautés" component={CommunitiesScreen} />
-        <TopTab.Screen name="Historique" component={HistoryScreen} />
+        <TopTab.Screen name='Posts' component={PostsScreen} />
+        <TopTab.Screen name='Communautés' component={CommunitiesScreen} />
+        <TopTab.Screen name='Historique' component={HistoryScreen} />
       </TopTab.Navigator>
     </Container>
   );
@@ -147,9 +157,24 @@ const HomeButtonText = styled.Text`
 `;
 
 const ButtonContainer = styled.View`
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   width: 50%;
+`;
+
+const LogoutButton = styled.TouchableOpacity`
+  background-color: transparent;
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: 1px solid #ffffff;
+  align-self: flex-start;
+  margin-top: auto;
+  margin-bottom: auto;
+`;
+
+const LogoutButtonText = styled.Text`
+  color: #ffffff;
+  font-size: 16px;
 `;
 
 export default ProfileScreen;

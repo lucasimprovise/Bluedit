@@ -4,11 +4,11 @@ import Register from './src/screens/Register';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Authentication from './src/Authentication';
 import { Provider } from 'react-redux';
-import HomePage from './src/HomePage';
+import HomePage from './src/screens/HomePage';
 import { store } from './src/store/store';
-import CreatePostScreen from './src/CreatePostScreen';
+import CreatePostScreen from './src/screens/Post/CreatePostScreen';
+import PostDetailScreen from './src/screens/Post/PostDetailScreen';
 
 const Stack = createStackNavigator();
 
@@ -42,8 +42,13 @@ const App = () => {
             options={screenOptions}
           />
           <Stack.Screen
-            name='CreatePostScreen'
+            name='CreatePost'
             component={CreatePostScreen}
+            options={screenOptions}
+          />
+          <Stack.Screen
+            name='PostDetail'
+            component={PostDetailScreen}
             options={screenOptions}
           />
         </Stack.Navigator>

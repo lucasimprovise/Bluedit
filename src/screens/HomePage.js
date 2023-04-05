@@ -5,22 +5,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MyProfile from './MyProfile';
 import Login from './Login';
 import styled from 'styled-components/native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import AuthOrProfile from './../components/AuthOrProfile';
 
 import logo from './../assets/bluedit-logo.png';
-import React from 'react';
-import { View, Text, FlatList } from 'react-native';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import styled from 'styled-components/native';
-import { useSelector } from 'react-redux';
-
-// Ajoutez l'URL de votre logo ici
-import logo from './assets/bluedit-logo.png';
-import { useNavigation } from '@react-navigation/native';
-
+import { getPostsRequest } from '../store/actions/post';
 const fakeCommunities = [
   { id: '1', name: 'r/ReactNative' },
   { id: '2', name: 'r/JavaScript' },
@@ -71,27 +61,29 @@ const CommunitiesScreen = () => {
 
 const PopularScreen = () => {
   const { posts } = useSelector(state => state.post);
+  const navigation = useNavigation();
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getPostsRequest());
+  }, [dispatch]);
 
   return (
     <View>
       <FlatList
-        data={fakePosts}
+        data={posts}
         keyExtractor={item => item.id}
         renderItem={({ item }) => (
-          <PostContainer>
+          <PostContainer
+            onPress={() => {
+              navigation.navigate('PostDetail', { postId: item.id });
+            }}
+          >
             <PostTitle>{item.title}</PostTitle>
             <PostDetails>
-              {item.community} - Posted by u/{item.author}
+              b/{item.community} - Posted by u/{item?.author}
             </PostDetails>
-            <PostUpvotes>Upvotes: {item.upvotes}</PostUpvotes>
-          </PostContainer>
-        )}
-      />
-      <FlatList
-        data={posts}
-        renderItem={({ item }) => (
-          <PostContainer>
-            <PostTitle>{item.title}</PostTitle>
+            <PostUpvotes>Upvotes: {item.upVotes}</PostUpvotes>
           </PostContainer>
         )}
       />
@@ -114,7 +106,7 @@ const HomeTabs = () => {
   );
 };
 
-const BottomTab = createBottomTabNavigator();
+export const BottomTab = createBottomTabNavigator();
 
 const HomePage = () => {
   const currentUser = useSelector(state => state.currentUser);
@@ -175,7 +167,7 @@ const CommunityName = styled.Text`
   color: #333;
 `;
 
-const PostContainer = styled.View`
+const PostContainer = styled.TouchableOpacity`
   padding: 15px;
   border-bottom-width: 1px;
   border-bottom-color: #d3d3d3;

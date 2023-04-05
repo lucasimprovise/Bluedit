@@ -1,4 +1,4 @@
-import {CREATE_POST} from '../actions/post';
+import { GET_POSTS } from '../actions/post';
 
 const initialState = {
   posts: [],
@@ -6,11 +6,12 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case CREATE_POST:
+    case GET_POSTS:
       return {
         ...state,
-        posts: [...state.posts, action.post],
+        posts: action.posts,
       };
+
     default:
       return state;
   }

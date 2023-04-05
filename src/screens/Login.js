@@ -1,37 +1,44 @@
 // Import statements
-import React, { useState } from "react";
-import { Alert, Text, TouchableOpacity } from "react-native";
-import auth from "@react-native-firebase/auth";
-import styled from "styled-components";
-import { useNavigation } from "@react-navigation/native";
-import { useDispatch } from "react-redux";
-import { User } from "../models/User";
+import React, { useState } from 'react';
+import { Alert, Text, TouchableOpacity } from 'react-native';
+import auth from '@react-native-firebase/auth';
+import styled from 'styled-components';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { User } from '../models/User';
+import { loginUser } from '../store/actions/auth';
 
 // Component
-const Login = ({ navigation }) => {
+const Login = () => {
   // State
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   // Redux
   const dispatch = useDispatch();
 
+  const navigation = useNavigation();
+
   const signIn = async () => {
     try {
       await auth().signInWithEmailAndPassword(email, password);
-      Alert.alert("Success", "You have successfully signed in");
+
+      //Get user data from Firebase
+      const user = auth().currentUser;
 
       // Mettre à jour l'état d'authentification dans Redux
-      dispatch({ type: "LOGIN" });
+      dispatch(loginUser(user));
 
-      navigation.navigate("HomePage");
+      Alert.alert('Success', 'You have successfully signed in');
+
+      navigation.navigate('HomePage');
     } catch (error) {
-      Alert.alert("Error", error.message);
+      Alert.alert('Error', error.message);
     }
   };
 
   const handleGoRegister = () => {
-    navigation.navigate("Register");
+    navigation.navigate('Register');
   };
 
   // Return statement
@@ -44,14 +51,14 @@ const Login = ({ navigation }) => {
         </TouchableOpacity>
       </TitleContainer>
       <TextInput
-        placeholder="Email"
+        placeholder='Email'
         value={email}
         onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
+        keyboardType='email-address'
+        autoCapitalize='none'
       />
       <TextInput
-        placeholder="Password"
+        placeholder='Password'
         value={password}
         onChangeText={setPassword}
         secureTextEntry
