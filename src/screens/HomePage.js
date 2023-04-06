@@ -1,42 +1,42 @@
-import React, { useEffect } from "react";
-import { View, Text, FlatList } from "react-native";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import MyProfile from "./MyProfile";
-import Login from "./Login";
-import styled from "styled-components/native";
-import { useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
-import AuthOrProfile from "./../components/AuthOrProfile";
+import React, { useEffect } from 'react';
+import { View, Text, FlatList } from 'react-native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import MyProfile from './MyProfile';
+import Login from './Login';
+import styled from 'styled-components/native';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import AuthOrProfile from './../components/AuthOrProfile';
 
-import logo from "./../assets/bluedit-logo.png";
-
+import logo from './../assets/bluedit-logo.png';
+import { getPostsRequest } from '../store/actions/post';
 const fakeCommunities = [
-  { id: "1", name: "r/ReactNative" },
-  { id: "2", name: "r/JavaScript" },
-  { id: "3", name: "r/Python" },
+  { id: '1', name: 'r/ReactNative' },
+  { id: '2', name: 'r/JavaScript' },
+  { id: '3', name: 'r/Python' },
 ];
 
 const fakePosts = [
   {
-    id: "1",
-    title: "React Native is amazing!",
-    author: "JohnDoe",
-    community: "r/ReactNative",
+    id: '1',
+    title: 'React Native is amazing!',
+    author: 'JohnDoe',
+    community: 'r/ReactNative',
     upvotes: 340,
   },
   {
-    id: "2",
-    title: "JavaScript vs TypeScript",
-    author: "JaneDoe",
-    community: "r/JavaScript",
+    id: '2',
+    title: 'JavaScript vs TypeScript',
+    author: 'JaneDoe',
+    community: 'r/JavaScript',
     upvotes: 275,
   },
   {
-    id: "3",
-    title: "Python for Data Science",
-    author: "DataMaster",
-    community: "r/Python",
+    id: '3',
+    title: 'Python for Data Science',
+    author: 'DataMaster',
+    community: 'r/Python',
     upvotes: 420,
   },
 ];
@@ -48,7 +48,7 @@ const CommunitiesScreen = () => {
     <View>
       <FlatList
         data={fakeCommunities}
-        keyExtractor={(item) => item.id}
+        keyExtractor={item => item.id}
         renderItem={({ item }) => (
           <CommunityContainer>
             <CommunityName>{item.name}</CommunityName>
@@ -60,18 +60,30 @@ const CommunitiesScreen = () => {
 };
 
 const PopularScreen = () => {
+  const { posts } = useSelector(state => state.post);
+  const navigation = useNavigation();
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getPostsRequest());
+  }, [dispatch]);
+
   return (
     <View>
       <FlatList
-        data={fakePosts}
-        keyExtractor={(item) => item.id}
+        data={posts}
+        keyExtractor={item => item.id}
         renderItem={({ item }) => (
-          <PostContainer>
+          <PostContainer
+            onPress={() => {
+              navigation.navigate('PostDetail', { postId: item.id });
+            }}
+          >
             <PostTitle>{item.title}</PostTitle>
             <PostDetails>
-              {item.community} - Posted by u/{item.author}
+              b/{item.community} - Posted by u/{item?.author}
             </PostDetails>
-            <PostUpvotes>Upvotes: {item.upvotes}</PostUpvotes>
+            <PostUpvotes>Upvotes: {item.upVotes}</PostUpvotes>
           </PostContainer>
         )}
       />
@@ -83,30 +95,30 @@ const HomeTabs = () => {
   return (
     <TopTab.Navigator
       tabBarOptions={{
-        activeTintColor: "#ffffff",
-        inactiveTintColor: "#aaaaaa",
-        style: { backgroundColor: "#0047b3" },
+        activeTintColor: '#ffffff',
+        inactiveTintColor: '#aaaaaa',
+        style: { backgroundColor: '#0047b3' },
       }}
     >
-      <TopTab.Screen name="Communities" component={CommunitiesScreen} />
-      <TopTab.Screen name="Popular" component={PopularScreen} />
+      <TopTab.Screen name='Communities' component={CommunitiesScreen} />
+      <TopTab.Screen name='Popular' component={PopularScreen} />
     </TopTab.Navigator>
   );
 };
 
-const BottomTab = createBottomTabNavigator();
+export const BottomTab = createBottomTabNavigator();
 
 const HomePage = () => {
-  const currentUser = useSelector((state) => state.currentUser);
+  const currentUser = useSelector(state => state.currentUser);
   const navigation = useNavigation();
 
   useEffect(() => {
     // Cette fonction sera exécutée lorsque currentUser change
-    navigation.navigate("MyProfile");
+    navigation.navigate('MyProfile');
   }, [currentUser, navigation]);
 
   const handleCreate = () => {
-    alert("Créer une nouvelle communauté ou un nouveau post");
+    navigation.navigate('CreatePost');
   };
 
   const RedirectToProfileOrAuth = () => {
@@ -121,8 +133,8 @@ const HomePage = () => {
     <Container>
       <Logo source={logo} />
       <BottomTab.Navigator>
-        <BottomTab.Screen name="Home" component={HomeTabs} />
-        <BottomTab.Screen name="User" component={AuthOrProfile} />
+        <BottomTab.Screen name='Home' component={HomeTabs} />
+        <BottomTab.Screen name='User' component={AuthOrProfile} />
       </BottomTab.Navigator>
       <CreateButton onPress={handleCreate}>
         <CreateButtonText>+</CreateButtonText>
@@ -155,7 +167,7 @@ const CommunityName = styled.Text`
   color: #333;
 `;
 
-const PostContainer = styled.View`
+const PostContainer = styled.TouchableOpacity`
   padding: 15px;
   border-bottom-width: 1px;
   border-bottom-color: #d3d3d3;

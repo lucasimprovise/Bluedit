@@ -1,22 +1,22 @@
-import React, { useEffect } from "react";
-import { ActivityIndicator, View } from "react-native";
-import { useSelector } from "react-redux";
+import React, { useEffect } from 'react';
+import { ActivityIndicator, View } from 'react-native';
+import { useSelector } from 'react-redux';
 
 const UserRedirect = ({ navigation }) => {
   // Utilisez useSelector pour accéder à l'état d'authentification
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const isAuthenticated = useSelector(state => state.auth.user?.uid);
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigation.navigate("MyProfile");
+      navigation.navigate('MyProfile');
     } else {
-      navigation.navigate("Login");
+      navigation.navigate('Login');
     }
   }, [isAuthenticated, navigation]);
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <ActivityIndicator size="large" color="#0000ff" />
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <ActivityIndicator size='large' color='#0000ff' />
     </View>
   );
 };
