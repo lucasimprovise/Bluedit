@@ -35,8 +35,8 @@ const ProfileScreen = () => {
     navigation.navigate('Login');
   };
 
-  const handleEditProfile = () => {
-    navigation.navigate('EditProfile');
+  const handleGoSettings = () => {
+    navigation.navigate('Settings');
   };
 
   const handleGoHome = () => {
@@ -55,13 +55,13 @@ const ProfileScreen = () => {
         </User>
         <ProfileButtons>
           <ProfileButton onPress={handleLogout}>
-            <ProfileButtonText>{t('settings')}</ProfileButtonText>
+            <ProfileButtonText>{t('logout')}</ProfileButtonText>
           </ProfileButton>
           <ProfileButton onPress={handleGoHome}>
             <ProfileButtonText>{t('home')}</ProfileButtonText>
           </ProfileButton>
-          <ProfileButton onPress={handleEditProfile}>
-            <ProfileButtonText>{t('edit')}</ProfileButtonText>
+          <ProfileButton onPress={handleGoSettings}>
+            <ProfileButtonText>{t('settings')}</ProfileButtonText>
           </ProfileButton>
         </ProfileButtons>
       </ProfileHeader>

@@ -5,8 +5,8 @@ import styled from 'styled-components/native'
 const SplashScreen = ({ navigation, isSignedIn }) => {
   useEffect(() => {
     setTimeout(() => {
-      if (isSignedIn) navigation.replace('HomePage')
-      else navigation.replace('Login')
+      if (isSignedIn) navigation.navigate('HomePage')
+      else navigation.navigate('Login')
     }, 2000)
   }, [])
 

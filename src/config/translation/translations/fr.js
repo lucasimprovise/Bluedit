@@ -24,6 +24,7 @@ export default {
     },
     success: 'Succès',
     settings: 'Paramètres',
+    logout: 'Se déconnecter',
     go_back: 'Retour',
     posted_by: 'Posté par',
     posts: 'Posts',
@@ -32,5 +33,7 @@ export default {
     history: 'Historique',
     change_language: 'Changer de langue',
     share: 'Partager',
+    search_posts: 'Rechercher des posts',
+    search_communities: 'Rechercher des communautés',
   }
 }

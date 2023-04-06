@@ -27,6 +27,7 @@ export default {
     cancel: 'Cancel',
     delete: 'Delete',
     settings: 'Settings',
+    logout: 'Logout',
     go_back: 'Go back',
     posted_by: 'Posted by',
     posts: 'Posts',
@@ -35,5 +36,7 @@ export default {
     history: 'History',
     change_language: 'Change language',
     share: 'Share',
+    search_posts: 'Search posts',
+    search_communities: 'Search communities',
   }
 }

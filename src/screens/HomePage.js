@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react'
-import { View, Text, FlatList } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { View, Text, FlatList, TextInput } from 'react-native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import styled from 'styled-components/native'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
-import logo from './../assets/bluedit-logo.png'
 import ProfileScreen from './MyProfile'
 import Login from './Login'
 import { useSelector, useDispatch } from 'react-redux'
@@ -46,10 +45,21 @@ const fakePosts = [
 const TopTab = createMaterialTopTabNavigator()
 
 const CommunitiesScreen = () => {
+  const { t } = useTranslation()
+  const [searchValue, setSearchValue] = useState('')
+  const handleSearch = (value) => {
+    setSearchValue(value)
+  }
+
+  const filteredCommunities = fakeCommunities.filter((community) => {
+    return community.name.toLowerCase().includes(searchValue.toLowerCase())
+  })
+
   return (
     <View>
+      <TextInput style={{ height: 40, borderColor: 'gray', borderWidth: 1 }} onChangeText={handleSearch} value={searchValue} placeholder={t('search_communities')} />
       <FlatList
-        data={fakeCommunities}
+        data={filteredCommunities}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <CommunityContainer>
@@ -65,16 +75,26 @@ const PopularScreen = () => {
   const { t } = useTranslation()
   const { posts } = useSelector((state) => state.post)
   const navigation = useNavigation()
-
+  const [searchValue, setSearchValue] = useState('')
   const dispatch = useDispatch()
+
+  const handleSearch = (value) => {
+    setSearchValue(value)
+  }
+
+  const filteredPosts = posts.filter((post) => {
+    return post.title.toLowerCase().includes(searchValue.toLowerCase())
+  })
+
   useEffect(() => {
     dispatch(getPostsRequest())
   }, [dispatch])
 
   return (
     <View>
+      <TextInput style={{ height: 40, borderColor: 'gray', borderWidth: 1 }} onChangeText={handleSearch} value={searchValue} placeholder={t('search_posts')} />
       <FlatList
-        data={posts}
+        data={filteredPosts}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <PostContainer
@@ -133,6 +153,10 @@ const HomePage = () => {
     } else {
       return Login
     }
+  }
+
+  const screenOptions = {
+    headerShown: false
   }
 
   return (
