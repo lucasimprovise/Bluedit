@@ -3,7 +3,7 @@ import styled from 'styled-components/native'
 import { useTranslation } from 'react-i18next'
 import { Share } from 'react-native'
 
-const Post = ({ title, upvotes, downvotes, comments, id }) => {
+const Post = ({ title, upvotes, upVotes, downvotes, downVotes, comments, id }) => {
   const { t } = useTranslation()
 
   const sharePost = async () => {
@@ -27,11 +27,11 @@ const Post = ({ title, upvotes, downvotes, comments, id }) => {
     <PostContainer>
       <PostTitle>{title}</PostTitle>
       <PostVotes>
-        <PostUpvotes>+{upvotes}</PostUpvotes>
-        <PostDownvotes>-{downvotes}</PostDownvotes>
+        <PostUpvotes>+{upvotes || upVotes}</PostUpvotes>
+        <PostDownvotes>-{downvotes || downVotes}</PostDownvotes>
       </PostVotes>
       <PostComments>
-        {comments.length} {t('comments')}
+        {comments?.length || 0} {t('comments')}
       </PostComments>
       <ShareButton onPress={sharePost}>
         <ShareText>{t('share')}</ShareText>

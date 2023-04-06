@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import AuthOrProfile from './../components/AuthOrProfile'
 import logo from './../assets/bluedit-logo.png'
 import { getPostsRequest } from '../store/actions/post'
+import Post from '../components/Post'
 
 const fakeCommunities = [
   { id: '1', name: 'r/ReactNative' },
@@ -57,7 +58,12 @@ const CommunitiesScreen = () => {
 
   return (
     <View>
-      <TextInput style={{ height: 40, borderColor: 'gray', borderWidth: 1 }} onChangeText={handleSearch} value={searchValue} placeholder={t('search_communities')} />
+      <TextInput
+        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+        onChangeText={handleSearch}
+        value={searchValue}
+        placeholder={t('search_communities')}
+      />
       <FlatList
         data={filteredCommunities}
         keyExtractor={(item) => item.id}
@@ -101,11 +107,7 @@ const PopularScreen = () => {
             onPress={() => {
               navigation.navigate('PostDetail', { postId: item.id })
             }}>
-            <PostTitle>{item.title}</PostTitle>
-            <PostDetails>
-              b/{item.community} - {t('posted_by')} u/{item?.author}
-            </PostDetails>
-            <PostUpvotes>Upvotes: {item.upVotes}</PostUpvotes>
+            <Post {...item}></Post>
           </PostContainer>
         )}
       />
@@ -138,10 +140,10 @@ const HomePage = () => {
   const currentUser = useSelector((state) => state.currentUser)
   const navigation = useNavigation()
 
-  useEffect(() => {
-    // Cette fonction sera exécutée lorsque currentUser change
-    navigation.navigate('MyProfile')
-  }, [currentUser, navigation])
+  // useEffect(() => {
+  //   // Cette fonction sera exécutée lorsque currentUser change
+  //   // navigation.navigate('MyProfile')
+  // }, [currentUser, navigation])
 
   const handleCreate = () => {
     navigation.navigate('CreatePost')
