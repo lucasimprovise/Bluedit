@@ -11,6 +11,8 @@ import Register from './src/screens/Register'
 import Settings from './src/screens/Settings'
 import './src/config/translation'
 import SplashScreen from './src/components/SplashScreen'
+import CreatePostScreen from './src/screens/Post/CreatePostScreen';
+import PostDetailScreen from './src/screens/Post/PostDetailScreen';
 
 const Stack = createStackNavigator()
 
@@ -43,8 +45,17 @@ const App = () => {
               <>
                 <Stack.Screen name="HomePage" component={HomePage} options={screenOptions} />
                 <Stack.Screen name="Settings" component={Settings} options={screenOptions} />
-                <Stack.Screen name="CreatePostScreen" component={CreatePostScreen} options={screenOptions} />
                 <Stack.Screen name="MyProfile" component={MyProfile} options={screenOptions} />
+                <Stack.Screen
+                  name='CreatePost'
+                  component={CreatePostScreen}
+                  options={screenOptions}
+                />
+                <Stack.Screen
+                  name='PostDetail'
+                  component={PostDetailScreen}
+                  options={screenOptions}
+                />
               </>
             )}
           </Stack.Navigator>

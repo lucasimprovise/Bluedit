@@ -8,6 +8,8 @@ import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { store } from '../store/store'
 import { AppContext } from '../../App'
+import { User } from '../models/User'
+import { loginUser } from '../store/actions/auth'
 
 // Component
 const Login = () => {
@@ -19,26 +21,22 @@ const Login = () => {
 
   // Navigation
   const navigation = useNavigation()
-
   // Redux
   const dispatch = useDispatch()
 
   // Functions
   const signIn = async () => {
     try {
-      await auth()
-        .signInWithEmailAndPassword(email, password)
-        .then((res) => {
-          console.log('User', res.user)
-          Alert.alert(t('success'), t('auth.success_login'))
+      await auth().signInWithEmailAndPassword(email, password)
 
-          // Mettre à jour l'état de l'authentification dans le store Redux avec l'objet res.user puis en faire un console.log pour vérifier si le nouvel état a bien été enregistré
-          dispatch({ type: 'LOGIN_USER', payload: res.user })
+      const user = auth().currentUser
 
-          setIsSignedIn(true)
+      // Mettre à jour l'état d'authentification dans Redux
+      dispatch(loginUser(user))
+      setIsSignedIn(true)
+      Alert.alert('Success', 'You have successfully signed in')
 
-          navigation.navigate('HomePage')
-        })
+      navigation.navigate('HomePage')
     } catch (error) {
       Alert.alert('Error', error.message)
     }

@@ -4,41 +4,44 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import PostsScreen from '../components/ProfileTabs/Posts'
 import CommunitiesScreen from '../components/ProfileTabs/Communities'
 import HistoryScreen from '../components/ProfileTabs/History'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutUser } from '../store/actions/auth';
 import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
 
 const ProfileScreen = () => {
   const { t } = useTranslation()
   const navigation = useNavigation()
+  const auth = useSelector(state => state);
 
   const [user, setUser] = useState({
     mail: 'aubin@gmail.com',
     pseudo: 'AubinLeThug',
     avatar: 'https://i.imgur.com/8Km9tLL.png',
-    bio: 'Je suis un thug'
-  })
+    bio: 'Je suis un thug',
+  });
 
   const [forumsCreated, setForumsCreated] = useState([
     {
       name: 'Pêche en eau douce',
-      description: 'Tout sur la pêche en eau douce'
-    }
-  ])
+      description: 'Tout sur la pêche en eau douce',
+    },
+  ]);
 
   const dispatch = useDispatch()
 
   const handleLogout = () => {
-    dispatch(logout())
-  }
+    dispatch(logoutUser());
+    navigation.navigate('Login');
+  };
 
   const handleEditProfile = () => {
-    navigation.navigate('EditProfile')
-  }
+    navigation.navigate('EditProfile');
+  };
 
-  const handleGoSettings = () => {
-    navigation.navigate('Settings')
-  }
+  const handleGoHome = () => {
+    navigation.navigate('HomePage');
+  };
 
   const TopTab = createBottomTabNavigator()
 
@@ -51,8 +54,11 @@ const ProfileScreen = () => {
           <UserDescription>{user.bio}</UserDescription>
         </User>
         <ProfileButtons>
-          <ProfileButton onPress={handleGoSettings}>
+          <ProfileButton onPress={handleLogout}>
             <ProfileButtonText>{t('settings')}</ProfileButtonText>
+          </ProfileButton>
+          <ProfileButton onPress={handleGoHome}>
+            <ProfileButtonText>{t('home')}</ProfileButtonText>
           </ProfileButton>
           <ProfileButton onPress={handleEditProfile}>
             <ProfileButtonText>{t('edit')}</ProfileButtonText>
@@ -61,7 +67,7 @@ const ProfileScreen = () => {
       </ProfileHeader>
 
       <TopTab.Navigator
-        initialRouteName="Posts"
+        initialRouteName='Posts'
         screenOptions={{
           tabBarActiveTintColor: '#2f6de7',
           tabBarInactiveTintColor: '#000',
@@ -144,4 +150,25 @@ const ProfileButtons = styled.View`
   gap: 16px;
 `
 
-export default ProfileScreen
+const ButtonContainer = styled.View`
+  flex-direction: column;
+  justify-content: space-between;
+  width: 50%;
+`;
+
+const LogoutButton = styled.TouchableOpacity`
+  background-color: transparent;
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: 1px solid #ffffff;
+  align-self: flex-start;
+  margin-top: auto;
+  margin-bottom: auto;
+`;
+
+const LogoutButtonText = styled.Text`
+  color: #ffffff;
+  font-size: 16px;
+`;
+
+export default ProfileScreen;

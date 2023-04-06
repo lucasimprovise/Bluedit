@@ -7,6 +7,11 @@ import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import logo from './../assets/bluedit-logo.png'
 import ProfileScreen from './MyProfile'
+import Login from './Login'
+import { useSelector, useDispatch } from 'react-redux'
+import AuthOrProfile from './../components/AuthOrProfile'
+import logo from './../assets/bluedit-logo.png'
+import { getPostsRequest } from '../store/actions/post'
 
 const fakeCommunities = [
   { id: '1', name: 'r/ReactNative' },
@@ -58,19 +63,29 @@ const CommunitiesScreen = () => {
 
 const PopularScreen = () => {
   const { t } = useTranslation()
+  const { posts } = useSelector((state) => state.post)
+  const navigation = useNavigation()
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getPostsRequest())
+  }, [dispatch])
 
   return (
     <View>
       <FlatList
-        data={fakePosts}
+        data={posts}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <PostContainer>
+          <PostContainer
+            onPress={() => {
+              navigation.navigate('PostDetail', { postId: item.id })
+            }}>
             <PostTitle>{item.title}</PostTitle>
             <PostDetails>
-              {item.community} - {t('posted_by')} u/{item.author}
+              b/{item.community} - {t('posted_by')} u/{item?.author}
             </PostDetails>
-            <PostUpvotes>Upvotes: {item.upvotes}</PostUpvotes>
+            <PostUpvotes>Upvotes: {item.upVotes}</PostUpvotes>
           </PostContainer>
         )}
       />
@@ -97,18 +112,27 @@ const HomeTabs = () => {
   )
 }
 
-const BottomTab = createBottomTabNavigator()
+export const BottomTab = createBottomTabNavigator()
 
 const HomePage = () => {
+  const currentUser = useSelector((state) => state.currentUser)
   const navigation = useNavigation()
 
-  const screenOptions = {
-    headerShown: false
-  }
+  useEffect(() => {
+    // Cette fonction sera exécutée lorsque currentUser change
+    navigation.navigate('MyProfile')
+  }, [currentUser, navigation])
 
   const handleCreate = () => {
-    navigation.navigate('CreatePostScreen')
-    // alert('Créer une nouvelle communauté ou un nouveau post');
+    navigation.navigate('CreatePost')
+  }
+
+  const RedirectToProfileOrAuth = () => {
+    if (currentUser) {
+      return MyProfile
+    } else {
+      return Login
+    }
   }
 
   return (
@@ -149,7 +173,7 @@ const CommunityName = styled.Text`
   color: #333;
 `
 
-const PostContainer = styled.View`
+const PostContainer = styled.TouchableOpacity`
   padding: 15px;
   border-bottom-width: 1px;
   border-bottom-color: #d3d3d3;
