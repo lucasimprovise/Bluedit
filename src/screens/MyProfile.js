@@ -4,44 +4,44 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import PostsScreen from '../components/ProfileTabs/Posts'
 import CommunitiesScreen from '../components/ProfileTabs/Communities'
 import HistoryScreen from '../components/ProfileTabs/History'
-import { useDispatch, useSelector } from 'react-redux';
-import { logoutUser } from '../store/actions/auth';
+import { useDispatch, useSelector } from 'react-redux'
+import { logoutUser } from '../store/actions/auth'
 import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
 
 const ProfileScreen = () => {
   const { t } = useTranslation()
   const navigation = useNavigation()
-  const auth = useSelector(state => state);
+  const auth = useSelector((state) => state)
 
   const [user, setUser] = useState({
     mail: 'aubin@gmail.com',
     pseudo: 'AubinLeThug',
     avatar: 'https://i.imgur.com/8Km9tLL.png',
-    bio: 'Je suis un thug',
-  });
+    bio: 'Je suis un thug'
+  })
 
   const [forumsCreated, setForumsCreated] = useState([
     {
       name: 'Pêche en eau douce',
-      description: 'Tout sur la pêche en eau douce',
-    },
-  ]);
+      description: 'Tout sur la pêche en eau douce'
+    }
+  ])
 
   const dispatch = useDispatch()
 
   const handleLogout = () => {
-    dispatch(logoutUser());
-    navigation.navigate('Login');
-  };
+    dispatch(logoutUser())
+    navigation.navigate('Login')
+  }
 
   const handleGoSettings = () => {
-    navigation.navigate('Settings');
-  };
+    navigation.navigate('Settings')
+  }
 
   const handleGoHome = () => {
-    navigation.navigate('HomePage');
-  };
+    navigation.navigate('HomePage')
+  }
 
   const TopTab = createBottomTabNavigator()
 
@@ -67,7 +67,7 @@ const ProfileScreen = () => {
       </ProfileHeader>
 
       <TopTab.Navigator
-        initialRouteName='Posts'
+        initialRouteName="Posts"
         screenOptions={{
           tabBarActiveTintColor: '#2f6de7',
           tabBarInactiveTintColor: '#000',
@@ -80,9 +80,9 @@ const ProfileScreen = () => {
             right: 0
           }
         }}>
-        <TopTab.Screen name={t('posts')} component={PostsScreen} />
-        <TopTab.Screen name={t('communities')} component={CommunitiesScreen} />
-        <TopTab.Screen name={t('history')} component={HistoryScreen} />
+        <TopTab.Screen children={(props) => <PostsScreen {...props} />} name={t('posts')} />
+        <TopTab.Screen children={(props) => <CommunitiesScreen {...props} />} name={t('communities')} />
+        <TopTab.Screen children={(props) => <HistoryScreen {...props} />} name={t('history')} />
       </TopTab.Navigator>
     </Container>
   )
@@ -154,7 +154,7 @@ const ButtonContainer = styled.View`
   flex-direction: column;
   justify-content: space-between;
   width: 50%;
-`;
+`
 
 const LogoutButton = styled.TouchableOpacity`
   background-color: transparent;
@@ -164,11 +164,11 @@ const LogoutButton = styled.TouchableOpacity`
   align-self: flex-start;
   margin-top: auto;
   margin-bottom: auto;
-`;
+`
 
 const LogoutButtonText = styled.Text`
   color: #ffffff;
   font-size: 16px;
-`;
+`
 
-export default ProfileScreen;
+export default ProfileScreen

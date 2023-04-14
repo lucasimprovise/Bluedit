@@ -6,11 +6,10 @@ import styled from 'styled-components'
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { store } from '../store/store'
 import { AppContext } from '../../App'
-import { User } from '../models/User'
 import { loginUser } from '../store/actions/auth'
 import Logo from '../components/Logo'
+import TranslateAnimation from '../components/TranslateAnimation'
 
 // Component
 const Login = () => {
@@ -51,14 +50,18 @@ const Login = () => {
   return (
     <Container>
       <LogoContainer>
-        <Logo />
+        <TranslateAnimation duration={1500}>
+          <Logo />
+        </TranslateAnimation>
       </LogoContainer>
-      <TitleContainer>
-        <LoginTitle>{t('auth.sign_in')}</LoginTitle>
-        <TouchableOpacity onPress={handleGoRegister}>
-          <RegisterTitle>{t('auth.sign_up')}</RegisterTitle>
-        </TouchableOpacity>
-      </TitleContainer>
+      <TranslateAnimation fromLeft={false} duration={2000}>
+        <TitleContainer>
+          <LoginTitle>{t('auth.sign_in')}</LoginTitle>
+          <TouchableOpacity onPress={handleGoRegister}>
+            <RegisterTitle>{t('auth.sign_up')}</RegisterTitle>
+          </TouchableOpacity>
+        </TitleContainer>
+      </TranslateAnimation>
       <TextInput placeholder={t('auth.email')} value={email} onChangeText={setEmail} keyboardType="email-address" autoCapitalize="none" />
       <TextInput placeholder={t('auth.password')} value={password} onChangeText={setPassword} secureTextEntry />
       <Button onPress={signIn}>
@@ -79,6 +82,8 @@ const TitleContainer = styled.View`
   flex-direction: row;
   align-items: center;
   margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
 `
 
 const LoginTitle = styled.Text`

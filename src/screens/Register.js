@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux'
 import { User } from '../models/User'
 import { useTranslation } from 'react-i18next'
 import Logo from '../components/Logo'
+import TranslateAnimation from '../components/TranslateAnimation'
 
 // Component
 const Register = ({ navigation }) => {
@@ -39,14 +40,18 @@ const Register = ({ navigation }) => {
   return (
     <Container>
       <LogoContainer>
-        <Logo />
+        <TranslateAnimation delay={500} duration={1500}>
+          <Logo />
+        </TranslateAnimation>
       </LogoContainer>
-      <TitleContainer>
-        <TouchableOpacity onPress={handleGoLogin}>
-          <LoginTitle>{t('auth.sign_in')}</LoginTitle>
-        </TouchableOpacity>
-        <RegisterTitle>{t('auth.sign_up')}</RegisterTitle>
-      </TitleContainer>
+      <TranslateAnimation fromLeft={false} duration={2000}>
+        <TitleContainer>
+          <TouchableOpacity onPress={handleGoLogin}>
+            <LoginTitle>{t('auth.sign_in')}</LoginTitle>
+          </TouchableOpacity>
+          <RegisterTitle>{t('auth.sign_up')}</RegisterTitle>
+        </TitleContainer>
+      </TranslateAnimation>
       <TextInput placeholder={t('auth.email')} value={email} onChangeText={setEmail} keyboardType="email-address" autoCapitalize="none" />
       <TextInput placeholder={t('auth.password')} value={password} onChangeText={setPassword} secureTextEntry />
       <TextInput placeholder={t('auth.username')} value={username} onChangeText={setUsername} />

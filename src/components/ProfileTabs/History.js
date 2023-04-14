@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import styled from 'styled-components/native'
 import Post from '../Post'
 import { useTranslation } from 'react-i18next'
+import TranslateAnimation from '../TranslateAnimation'
 
-const HistoryScreen = () => {
+const HistoryScreen = (props) => {
   const { t } = useTranslation()
 
   const [userHistory, setUserHistory] = useState([
@@ -58,29 +59,37 @@ const HistoryScreen = () => {
   }
 
   return (
-    <HistoryList
-      data={userHistory}
-      keyExtractor={(item) => item.id}
-      renderItem={({ item }) => {
-        const post = posts.find((post) => post.id === item.postId)
-        const comment = post.comments.find((comment) => comment.id === item.commentId)
-        const isSubjectPost = ['comment', 'upvote', 'downvote'].includes(item.action)
+    <Container>
+      {props.navigation?.isFocused() && (
+        <HistoryList
+          data={userHistory}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item, index }) => {
+            const post = posts.find((post) => post.id === item.postId)
+            const comment = post.comments.find((comment) => comment.id === item.commentId)
+            const isSubjectPost = ['comment', 'upvote', 'downvote'].includes(item.action)
 
-        return (
-          <HistoryItemContainer>
-            <HistoryItemAction>
-              {actions[item.action]}
-              {(item.action == 'upvote' || item.action == 'downvote') && item.commentId && ` ${t('the_comment')} "${post.title}"`}
-            </HistoryItemAction>
+            return (
+              <TranslateAnimation delay={200 * index} duration={300}>
+                <HistoryItemContainer>
+                  <HistoryItemAction>
+                    {actions[item.action]}
+                    {(item.action == 'upvote' || item.action == 'downvote') && item.commentId && ` ${t('the_comment')} "${post.title}"`}
+                  </HistoryItemAction>
 
-            {comment && <HistoryItemDetails>"{comment?.content}"</HistoryItemDetails>}
-            {isSubjectPost && <Post {...post}></Post>}
-          </HistoryItemContainer>
-        )
-      }}
-    />
+                  {comment && <HistoryItemDetails>"{comment?.content}"</HistoryItemDetails>}
+                  {isSubjectPost && <Post {...post}></Post>}
+                </HistoryItemContainer>
+              </TranslateAnimation>
+            )
+          }}
+        />
+      )}
+    </Container>
   )
 }
+
+const Container = styled.View``
 
 const HistoryList = styled.FlatList`
   padding-top: 16px;

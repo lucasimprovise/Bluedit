@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/native'
 import Post from '../Post'
+import TranslateAnimation from '../TranslateAnimation'
 
-const PostsScreen = () => {
+const PostsScreen = (props) => {
   const [userPosts, setUserPosts] = useState([
     {
       title: 'Quelle est votre canne à pêche favorite ?',
@@ -57,17 +58,25 @@ const PostsScreen = () => {
   ])
 
   return (
-    <PostsList
-      data={userPosts}
-      keyExtractor={(item) => item.id}
-      renderItem={({ item }) => (
-        <PostContainer>
-          <Post {...item}></Post>
-        </PostContainer>
+    <Container>
+      {props.navigation?.isFocused() && (
+        <PostsList
+          data={userPosts}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item, index }) => (
+            <TranslateAnimation delay={200 * index} duration={300}>
+              <PostContainer>
+                <Post {...item}></Post>
+              </PostContainer>
+            </TranslateAnimation>
+          )}
+        />
       )}
-    />
+    </Container>
   )
 }
+
+const Container = styled.View``
 
 const PostsList = styled.FlatList`
   padding-top: 16px;

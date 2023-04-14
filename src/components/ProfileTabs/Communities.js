@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/native'
+import TranslateAnimation from '../TranslateAnimation'
 
-const CommunitiesScreen = () => {
+const CommunitiesScreen = (props) => {
   const [userCommunities, setUserCommunities] = useState([
     { id: '1', name: 'r/ReactNative', description: 'A subreddit for React Native' },
     { id: '2', name: 'r/JavaScript', description: 'A subreddit for JavaScript' },
@@ -9,18 +10,26 @@ const CommunitiesScreen = () => {
   ])
 
   return (
-    <CommunitiesList
-      data={userCommunities}
-      keyExtractor={(item) => item.id}
-      renderItem={({ item }) => (
-        <CommunityContainer>
-          <CommunityName>{item.name}</CommunityName>
-          <CommunityDescription>{item.description}</CommunityDescription>
-        </CommunityContainer>
+    <Container>
+      {props.navigation?.isFocused() && (
+        <CommunitiesList
+          data={userCommunities}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item, index }) => (
+            <TranslateAnimation delay={200 * index} duration={500}>
+              <CommunityContainer>
+                <CommunityName>{item.name}</CommunityName>
+                <CommunityDescription>{item.description}</CommunityDescription>
+              </CommunityContainer>
+            </TranslateAnimation>
+          )}
+        />
       )}
-    />
+    </Container>
   )
 }
+
+const Container = styled.View``
 
 const CommunitiesList = styled.FlatList`
   padding-top: 16px;

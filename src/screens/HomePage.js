@@ -12,6 +12,7 @@ import AuthOrProfile from './../components/AuthOrProfile'
 import logo from './../assets/bluedit-logo.png'
 import { getPostsRequest } from '../store/actions/post'
 import Post from '../components/Post'
+import TranslateAnimation from '../components/TranslateAnimation'
 
 const fakeCommunities = [
   { id: '1', name: 'r/ReactNative' },
@@ -45,7 +46,7 @@ const fakePosts = [
 
 const TopTab = createMaterialTopTabNavigator()
 
-const CommunitiesScreen = () => {
+const CommunitiesScreen = (props) => {
   const { t } = useTranslation()
   const [searchValue, setSearchValue] = useState('')
   const handleSearch = (value) => {
@@ -58,25 +59,25 @@ const CommunitiesScreen = () => {
 
   return (
     <View>
-      <SearchBar
-        onChangeText={handleSearch}
-        value={searchValue}
-        placeholder={t('search_communities')}
-      />
-      <FlatList
-        data={filteredCommunities}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <CommunityContainer>
-            <CommunityName>{item.name}</CommunityName>
-          </CommunityContainer>
-        )}
-      />
+      <SearchBar onChangeText={handleSearch} value={searchValue} placeholder={t('search_communities')} />
+      {props.navigation?.isFocused() && (
+        <FlatList
+          data={filteredCommunities}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item, index }) => (
+            <TranslateAnimation delay={100 * index} duration={300}>
+              <CommunityContainer>
+                <CommunityName>{item.name}</CommunityName>
+              </CommunityContainer>
+            </TranslateAnimation>
+          )}
+        />
+      )}
     </View>
   )
 }
 
-const PopularScreen = () => {
+const PopularScreen = (props) => {
   const { t } = useTranslation()
   const { posts } = useSelector((state) => state.post)
   const navigation = useNavigation()
@@ -98,18 +99,22 @@ const PopularScreen = () => {
   return (
     <View>
       <SearchBar onChangeText={handleSearch} value={searchValue} placeholder={t('search_posts')} />
-      <FlatList
-        data={filteredPosts}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <PostContainer
-            onPress={() => {
-              navigation.navigate('PostDetail', { postId: item.id })
-            }}>
-            <Post {...item}></Post>
-          </PostContainer>
-        )}
-      />
+      {props.navigation?.isFocused() && (
+        <FlatList
+          data={filteredPosts}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item, index }) => (
+            <TranslateAnimation delay={200 * index} duration={500}>
+              <PostContainer
+                onPress={() => {
+                  navigation.navigate('PostDetail', { postId: item.id })
+                }}>
+                <Post {...item}></Post>
+              </PostContainer>
+            </TranslateAnimation>
+          )}
+        />
+      )}
     </View>
   )
 }
@@ -127,8 +132,8 @@ const HomeTabs = () => {
 
   return (
     <TopTab.Navigator screenOptions={topTabStyles}>
-      <TopTab.Screen name={t('communities')} component={CommunitiesScreen} />
-      <TopTab.Screen name={t('popular')} component={PopularScreen} />
+      <TopTab.Screen children={(props) => <CommunitiesScreen {...props} />} name={t('communities')} />
+      <TopTab.Screen children={(props) => <PopularScreen {...props} />} name={t('popular')} />
     </TopTab.Navigator>
   )
 }
