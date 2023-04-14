@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { View, Text, TextInput, Button, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native'
 import { launchImageLibrary } from 'react-native-image-picker'
 
 const CreatePostScreen = () => {
@@ -36,64 +35,71 @@ const CreatePostScreen = () => {
   }
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.label}>Title</Text>
-      <TextInput style={styles.input} value={title} onChangeText={setTitle} />
-      <Text style={styles.label}>Content</Text>
-      <TextInput
-        style={{
-          ...styles.input,
-          height: 200,
-          textAlignVertical: 'top'
-        }}
+    <Container>
+      <Label>Title</Label>
+      <Input value={title} onChangeText={setTitle} />
+      <Label>Content</Label>
+      <LargeInput
         value={content}
         onChangeText={setContent}
         multiline={true}
         numberOfLines={10}
       />
-      {image ? <Image style={styles.imagePreview} source={{ uri: image }} /> : null}
-      <TouchableOpacity style={styles.button} onPress={handleImagePicker}>
-        <Text style={styles.buttonText}>Add Image</Text>
-      </TouchableOpacity>
+      {image ? <ImagePreview source={{ uri: image }} /> : null}
+      <Button onPress={handleImagePicker}>
+        <ButtonText>Add Image</ButtonText>
+      </Button>
       <Button title="Publish" onPress={handlePublish} />
-    </ScrollView>
+    </Container>
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20
-  },
-  label: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 10,
-    marginBottom: 20
-  },
-  button: {
-    backgroundColor: '#007aff',
-    padding: 10,
-    borderRadius: 5,
-    marginBottom: 20
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center'
-  },
-  imagePreview: {
-    width: '100%',
-    height: 200,
-    resizeMode: 'contain',
-    marginTop: 20
-  }
-})
+const Container = styled.View`
+  flex: 1;
+  padding: 20px;
+`
+
+const Label = styled.Text`
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+`
+
+const Input = styled.TextInput`
+  border-width: 1px;
+  border-color: #ccc;
+  padding: 10px;
+  margin-bottom: 20px;
+`
+
+const LargeInput = styled.TextInput`
+  border-width: 1px;
+  border-color: #ccc;
+  padding: 10px;
+  margin-bottom: 20px;
+  height: 200px;
+  text-align-vertical: top;
+`
+
+const Button = styled.TouchableOpacity`
+  background-color: #007aff;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+`
+
+const ButtonText = styled.Text`
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+`
+
+const ImagePreview = styled.Image`
+  width: 100%;
+  height: 200px;
+  resize-mode: contain;
+  margin-top: 20px;
+`
 
 export default CreatePostScreen

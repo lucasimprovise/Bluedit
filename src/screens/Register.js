@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useDispatch } from 'react-redux'
 import { User } from '../models/User'
 import { useTranslation } from 'react-i18next'
+import Logo from '../components/Logo'
 
 // Component
 const Register = ({ navigation }) => {
@@ -37,6 +38,9 @@ const Register = ({ navigation }) => {
   // Return statement
   return (
     <Container>
+      <LogoContainer>
+        <Logo />
+      </LogoContainer>
       <TitleContainer>
         <TouchableOpacity onPress={handleGoLogin}>
           <LoginTitle>{t('auth.sign_in')}</LoginTitle>
@@ -97,6 +101,12 @@ const Button = styled.TouchableOpacity`
 
 const ButtonText = styled.Text`
   color: #ffffff;
+`
+
+const LogoContainer = styled.View`
+  position: absolute;
+  top: 50px;
+  margin: 10px auto;
 `
 
 export default Register

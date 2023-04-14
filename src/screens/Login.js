@@ -10,6 +10,7 @@ import { store } from '../store/store'
 import { AppContext } from '../../App'
 import { User } from '../models/User'
 import { loginUser } from '../store/actions/auth'
+import Logo from '../components/Logo'
 
 // Component
 const Login = () => {
@@ -49,6 +50,9 @@ const Login = () => {
   // Return statement
   return (
     <Container>
+      <LogoContainer>
+        <Logo />
+      </LogoContainer>
       <TitleContainer>
         <LoginTitle>{t('auth.sign_in')}</LoginTitle>
         <TouchableOpacity onPress={handleGoRegister}>
@@ -108,6 +112,12 @@ const Button = styled.TouchableOpacity`
 
 const ButtonText = styled.Text`
   color: #ffffff;
+`
+
+const LogoContainer = styled.View`
+  position: absolute;
+  top: 50px;
+  margin: 10px auto;
 `
 
 export default Login

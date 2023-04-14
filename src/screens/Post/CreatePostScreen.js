@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { View, Text, TextInput, Button, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native'
 import { launchImageLibrary } from 'react-native-image-picker'
 import styled from 'styled-components/native'
 import { useDispatch } from 'react-redux'
@@ -79,6 +78,11 @@ const PublishButtonText = styled.Text`
   font-size: 18px;
   font-weight: bold;
   text-align: center;
+`
+
+const LargeInput = styled.TextInput`
+  height: 200px;
+  text-align-vertical: top;
 `
 
 const CreatePostScreen = () => {
@@ -174,11 +178,7 @@ const CreatePostScreen = () => {
       <Label>Title</Label>
       <Input value={title} onChangeText={setTitle} />
       <Label>Content</Label>
-      <Input
-        style={{
-          height: 200,
-          textAlignVertical: 'top'
-        }}
+      <LargeInput
         value={content}
         onChangeText={setContent}
         multiline={true}

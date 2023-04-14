@@ -58,8 +58,7 @@ const CommunitiesScreen = () => {
 
   return (
     <View>
-      <TextInput
-        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+      <SearchBar
         onChangeText={handleSearch}
         value={searchValue}
         placeholder={t('search_communities')}
@@ -98,7 +97,7 @@ const PopularScreen = () => {
 
   return (
     <View>
-      <TextInput style={{ height: 40, borderColor: 'gray', borderWidth: 1 }} onChangeText={handleSearch} value={searchValue} placeholder={t('search_posts')} />
+      <SearchBar onChangeText={handleSearch} value={searchValue} placeholder={t('search_posts')} />
       <FlatList
         data={filteredPosts}
         keyExtractor={(item) => item.id}
@@ -205,24 +204,6 @@ const PostContainer = styled.TouchableOpacity`
   border-bottom-color: #d3d3d3;
 `
 
-const PostTitle = styled.Text`
-  font-size: 20px;
-  font-weight: bold;
-  color: #333;
-`
-
-const PostDetails = styled.Text`
-  font-size: 14px;
-  color: #888;
-  margin-top: 5px;
-`
-
-const PostUpvotes = styled.Text`
-  font-size: 16px;
-  color: #333;
-  margin-top: 10px;
-`
-
 const CreateButton = styled.TouchableOpacity`
   position: absolute;
   bottom: 60px;
@@ -244,6 +225,12 @@ const CreateButtonText = styled.Text`
   color: #ffffff;
   font-size: 32px;
   font-weight: bold;
+`
+
+const SearchBar = styled.TextInput`
+  height: 40px;
+  border-color: gray;
+  border-width: 1px;
 `
 
 export default HomePage

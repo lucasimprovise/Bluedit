@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { useSelector } from 'react-redux';
+import { $CombinedState } from 'redux';
 
 const UserRedirect = ({ navigation }) => {
   // Utilisez useSelector pour accéder à l'état d'authentification
@@ -15,10 +16,16 @@ const UserRedirect = ({ navigation }) => {
   }, [isAuthenticated, navigation]);
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <SpinnerContainer>
       <ActivityIndicator size='large' color='#0000ff' />
-    </View>
+    </SpinnerContainer>
   );
 };
+
+const SpinnerContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
 
 export default UserRedirect;
