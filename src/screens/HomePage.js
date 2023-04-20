@@ -17,6 +17,24 @@ const fakeCommunities = [
   { id: '3', name: 'r/Python' },
 ];
 
+const communities = [
+  { id: '1', name: 'b/React' },
+  {
+    id: '2',
+    name: 'b/React Native',
+  },
+
+  {
+    id: '3',
+    name: 'b/Svelte',
+  },
+  { id: '4', name: 'b/Football' },
+  { id: '5', name: 'b/Sports' },
+  { id: '6', name: 'b/LeagueOfLegends' },
+  { id: '7', name: 'b/History' },
+  { id: '8', name: 'b/Car' },
+];
+
 const fakePosts = [
   {
     id: '1',
@@ -44,13 +62,20 @@ const fakePosts = [
 const TopTab = createMaterialTopTabNavigator();
 
 const CommunitiesScreen = () => {
+  const navigation = useNavigation();
   return (
     <View>
       <FlatList
-        data={fakeCommunities}
+        data={communities}
         keyExtractor={item => item.id}
         renderItem={({ item }) => (
-          <CommunityContainer>
+          <CommunityContainer
+            onPress={() => {
+              navigation.navigate('CommunityDetail', {
+                communityName: item.name.substring(2),
+              });
+            }}
+          >
             <CommunityName>{item.name}</CommunityName>
           </CommunityContainer>
         )}
@@ -94,11 +119,17 @@ const PopularScreen = () => {
 const HomeTabs = () => {
   return (
     <TopTab.Navigator
-      tabBarOptions={{
-        activeTintColor: '#ffffff',
-        inactiveTintColor: '#aaaaaa',
-        style: { backgroundColor: '#0047b3' },
+      screenOptions={{
+        tabBarLabelStyle: { fontSize: 12 },
+        tabBarStyle: { backgroundColor: '#0047b3' },
+        tabBarActiveTintColor: '#ffffff',
+        tabBarInactiveTintColor: '#aaaaaa',
       }}
+      // tabBarOptions={{
+      //   activeTintColor: '#ffffff',
+      //   inactiveTintColor: '#aaaaaa',
+      //   style: { backgroundColor: '#0047b3' },
+      // }}
     >
       <TopTab.Screen name='Communities' component={CommunitiesScreen} />
       <TopTab.Screen name='Popular' component={PopularScreen} />
@@ -155,7 +186,7 @@ const Logo = styled.Image`
   margin: 10px auto;
 `;
 
-const CommunityContainer = styled.View`
+const CommunityContainer = styled.TouchableOpacity`
   padding: 10px;
   border-bottom-width: 1px;
   border-bottom-color: #d3d3d3;
@@ -203,7 +234,10 @@ const CreateButton = styled.TouchableOpacity`
   align-items: center;
   elevation: 5;
   shadow-color: #000;
-  shadow-offset: {width: 0, height: 2};
+  shadow-offset: {
+    width: 0;
+    height: 2;
+  }
   shadow-opacity: 0.25;
   shadow-radius: 3.84px;
 `;

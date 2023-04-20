@@ -4,6 +4,12 @@ import { Community } from './Community';
 import { Comments } from './Comments';
 const POSTS = firestore().collection('Posts');
 
+export interface ICreatePost {
+  title: string;
+  content: string;
+  imageURL: string;
+}
+
 export class Post {
   id?: string;
   title?: string;
@@ -18,13 +24,7 @@ export class Post {
 
   constructor() {}
 
-  createPostObj(
-    title: string,
-    content: string,
-    // author: User,
-    // community: Community,
-    imageURL: string
-  ) {
+  createPostObj(post: ICreatePost) {
     console.log('create obj début', this);
     this.title = title;
     console.log('create obj title', this);
