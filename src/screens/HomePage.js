@@ -20,6 +20,24 @@ const fakeCommunities = [
   { id: '3', name: 'r/Python' }
 ]
 
+const communities = [
+  { id: '1', name: 'b/React' },
+  {
+    id: '2',
+    name: 'b/React Native',
+  },
+
+  {
+    id: '3',
+    name: 'b/Svelte',
+  },
+  { id: '4', name: 'b/Football' },
+  { id: '5', name: 'b/Sports' },
+  { id: '6', name: 'b/LeagueOfLegends' },
+  { id: '7', name: 'b/History' },
+  { id: '8', name: 'b/Car' },
+];
+
 const fakePosts = [
   {
     id: '1',
@@ -57,22 +75,25 @@ const CommunitiesScreen = (props) => {
     return community.name.toLowerCase().includes(searchValue.toLowerCase())
   })
 
+const CommunitiesScreen = () => {
+  const navigation = useNavigation();
   return (
     <View>
-      <SearchBar onChangeText={handleSearch} value={searchValue} placeholder={t('search_communities')} />
-      {props.navigation?.isFocused() && (
-        <FlatList
-          data={filteredCommunities}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item, index }) => (
-            <TranslateAnimation delay={100 * index} duration={300}>
-              <CommunityContainer>
-                <CommunityName>{item.name}</CommunityName>
-              </CommunityContainer>
-            </TranslateAnimation>
-          )}
-        />
-      )}
+      <FlatList
+        data={communities}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => (
+          <CommunityContainer
+            onPress={() => {
+              navigation.navigate('CommunityDetail', {
+                communityName: item.name.substring(2),
+              });
+            }}
+          >
+            <CommunityName>{item.name}</CommunityName>
+          </CommunityContainer>
+        )}
+      />
     </View>
   )
 }
@@ -121,7 +142,6 @@ const PopularScreen = (props) => {
 
 const HomeTabs = () => {
   const { t } = useTranslation()
-
   const topTabStyles = {
     activeTintColor: '#ffffff',
     inactiveTintColor: '#aaaaaa',
@@ -191,7 +211,7 @@ const Logo = styled.Image`
   margin: 10px auto;
 `
 
-const CommunityContainer = styled.View`
+const CommunityContainer = styled.TouchableOpacity`
   padding: 10px;
   border-bottom-width: 1px;
   border-bottom-color: #d3d3d3;
@@ -221,7 +241,10 @@ const CreateButton = styled.TouchableOpacity`
   align-items: center;
   elevation: 5;
   shadow-color: #000;
-  shadow-offset: {width: 0, height: 2};
+  shadow-offset: {
+    width: 0;
+    height: 2;
+  }
   shadow-opacity: 0.25;
   shadow-radius: 3.84px;
 `

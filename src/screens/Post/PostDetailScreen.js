@@ -18,13 +18,13 @@ const PostDetailScreen = ({ route }) => {
       <BackButton onPress={() => navigation.goBack()}>
         <BackButtonText>{'< Retour'}</BackButtonText>
       </BackButton>
-      <PostImage source={{ uri: imageURL }} />
+      {imageURL && <PostImage source={{ uri: imageURL }} />}
       <Title>{title}</Title>
       <Community>b/{community}</Community>
       <Content>{content}</Content>
       <VotesContainer>
-        <UpVotes>{upVotes}</UpVotes>
-        <DownVotes>{downVotes}</DownVotes>
+        <UpVotes>Up : {upVotes}</UpVotes>
+        <DownVotes>Down : {downVotes}</DownVotes>
       </VotesContainer>
     </Container>
   );

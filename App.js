@@ -12,6 +12,7 @@ import './src/config/translation'
 import SplashScreen from './src/components/SplashScreen'
 import CreatePostScreen from './src/screens/Post/CreatePostScreen'
 import PostDetailScreen from './src/screens/Post/PostDetailScreen'
+import CommunityDetailScreen from './src/screens/Community/CommunityDetail'
 
 const Stack = createStackNavigator()
 
@@ -49,6 +50,7 @@ const App = () => {
                 <Stack.Screen name="MyProfile" component={MyProfile} options={screenOptions} />
                 <Stack.Screen name="CreatePost" component={CreatePostScreen} options={screenOptions} />
                 <Stack.Screen name="PostDetail" component={PostDetailScreen} options={screenOptions} />
+                <Stack.Screen name='CommunityDetail' component={CommunityDetailScreen} options={screenOptions}/>
               </>
             )}
           </Stack.Navigator>

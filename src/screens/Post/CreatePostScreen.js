@@ -1,16 +1,31 @@
-import React, { useState } from 'react'
-import { launchImageLibrary } from 'react-native-image-picker'
-import styled from 'styled-components/native'
-import { useDispatch } from 'react-redux'
-import { useNavigation } from '@react-navigation/native'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useMemo, useState } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
+import { LogBox } from 'react-native';
+
+import { launchImageLibrary } from 'react-native-image-picker';
+import styled from 'styled-components/native';
+import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import Autocomplete from 'react-native-autocomplete-input';
 
 import storage from '@react-native-firebase/storage'
 import { createPostRequest } from '../../store/actions/post'
 import { User } from '../../models/User'
 import { Post } from '../../models/Post'
 
-const Container = styled.ScrollView`
+const Container = styled.SafeAreaView``;
+
+const ScrollContainer = styled.ScrollView`
   flex: 1;
   padding: 20px;
   padding-bottom: 50px;
@@ -35,12 +50,14 @@ const Title = styled.Text`
 const Label = styled.Text`
   font-size: 18px;
   font-weight: bold;
+  margin-top: 10px;
   margin-bottom: 10px;
 `
 
 const Input = styled.TextInput`
   border-width: 1px;
   border-color: #ccc;
+  background-color: white;
   padding: 10px;
   margin-bottom: 20px;
 `
@@ -85,6 +102,17 @@ const LargeInput = styled.TextInput`
   text-align-vertical: top;
 `
 
+const communities = [
+  'b/React',
+  'b/React Native',
+  'b/Svelte',
+  'b/Football',
+  'b/Sports',
+  'b/LeagueOfLegends',
+  'b/History',
+  'b/Car',
+];
+
 const CreatePostScreen = () => {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
@@ -94,7 +122,11 @@ const CreatePostScreen = () => {
   const dispatch = useDispatch()
   const navigation = useNavigation()
 
-  const auth = useSelector((state) => state.auth)
+  useEffect(() => {
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+  }, []);
+
+  const auth = useSelector(state => state.auth);
 
   const handleImagePicker = () => {
     const options = {
@@ -118,20 +150,27 @@ const CreatePostScreen = () => {
   }
 
   const handlePublish = async () => {
-    const fileName = `post-images/${Date.now()}.jpg`
-    const reference = storage().ref(fileName)
+    let url = '';
+    if (image) {
+      const fileName = `post-images/${Date.now()}.jpg`;
+      const reference = storage().ref(fileName);
 
-    const task = reference.putString(image, 'data_url')
-    const snapshot = await task
+      const task = reference.putString(image, 'data_url');
+      const snapshot = await task;
+
+      try {
+        url = await storage().ref(fileName).getDownloadURL();
+      } catch (e) {
+        console.log(e);
+      }
+    }
 
     try {
-      const url = await storage().ref(fileName).getDownloadURL()
-
       dispatch(
         createPostRequest({
           title,
           content,
-          imageURL: url,
+          imageURL: url || '',
           upVotes: 0,
           downVotes: 0,
           date: new Date(),
@@ -152,47 +191,80 @@ const CreatePostScreen = () => {
     setImage(null)
   }
 
+  const suggestions = useMemo(() => {
+    if (!community) {
+      return communities;
+    }
+
+    return communities.filter(c => {
+      if (c.includes(community)) {
+        return c;
+      }
+    });
+  }, [community]);
+
+  const [selected, setSelected] = useState(false);
+
   return (
-    <Container>
-      <BackButton onPress={() => navigation.goBack()}>
-        <BackButtonText>{`< Retour`}</BackButtonText>
-      </BackButton>
+    <ScrollContainer>
+      <Container>
+        <BackButton onPress={() => navigation.goBack()}>
+          <BackButtonText>{`< Retour`}</BackButtonText>
+        </BackButton>
 
-      <Title>Create Post</Title>
-      <Label>Community</Label>
-      <Input
-        //value community
-        //if no community, then b/
-        value={community.startsWith('b/') ? community : 'b/'}
-        onChangeText={(e) => {
-          // make a reddit community name like b/CommunityName
-          // so that we can search for it in the future
-          // remove the b/ if exists
-          if (e.startsWith('b/')) {
-            e = e.substring(2)
-          }
+        <Title>Create Post</Title>
+        <Label>Community</Label>
+        <Autocomplete
+          data={suggestions}
+          value={community.startsWith('b/') ? community : 'b/'}
+          hideResults={selected}
+          placeholder='Community'
+          onChangeText={e => {
+            setCommunity(e);
+            setSelected(false);
+          }}
+          flatListProps={{
+            keyExtractor: (_, idx) => idx,
+            renderItem: ({ item }) => (
+              <ScrollView>
+                <TouchableOpacity
+                  onPress={e => {
+                    setCommunity(item);
+                    setSelected(true);
+                  }}
+                >
+                  <Text>{item}</Text>
+                </TouchableOpacity>
+              </ScrollView>
+            ),
+          }}
+        />
 
-          setCommunity('b/' + e)
-        }}
-      />
-      <Label>Title</Label>
-      <Input value={title} onChangeText={setTitle} />
-      <Label>Content</Label>
-      <LargeInput
-        value={content}
-        onChangeText={setContent}
-        multiline={true}
-        numberOfLines={10}
-      />
-      {image ? <ImagePreview source={{ uri: image }} /> : null}
-      <AddImageButton onPress={handleImagePicker}>
-        <AddImageButtonText>{image ? 'Change Image' : 'Add Image'}</AddImageButtonText>
-      </AddImageButton>
-      <PublishButton onPress={handlePublish}>
-        <PublishButtonText>Publish</PublishButtonText>
-      </PublishButton>
-    </Container>
-  )
-}
+        <Label>Title</Label>
+        <Input value={title} onChangeText={setTitle} />
+        <Label>Content</Label>
+        <Input
+          style={{
+            height: 200,
+            textAlignVertical: 'top',
+          }}
+          value={content}
+          onChangeText={setContent}
+          multiline={true}
+          numberOfLines={10}
+        />
+        {image ? <ImagePreview source={{ uri: image }} /> : null}
+        <AddImageButton onPress={handleImagePicker}>
+          <AddImageButtonText>
+            {image ? 'Change Image' : 'Add Image'}
+          </AddImageButtonText>
+        </AddImageButton>
+        <PublishButton onPress={handlePublish}>
+          <PublishButtonText>Publish</PublishButtonText>
+        </PublishButton>
+      </Container>
+    </ScrollContainer>
+  );
+};
 
 export default CreatePostScreen
